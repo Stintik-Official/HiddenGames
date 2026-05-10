@@ -6,7 +6,7 @@
   <title>IndieHaven — Каталог инди-игр</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
-    /* все стили точно такие же, как в предыдущей версии, они работают */
+    /* ===== ВСЕ СТИЛИ (ТАКИЕ ЖЕ, КАК РАБОТАЮТ) ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #0a0c10; font-family: 'Inter', sans-serif; color: #eef2ff; line-height: 1.5; }
     .site-header { text-align: center; padding: 48px 24px 32px; border-bottom: 1px solid rgba(255,255,255,0.08); }
@@ -71,7 +71,7 @@
 
 <script>
   // --------------------------------------------------------------
-  //  МАССИВ С ДАННЫМИ ИГР (ВСЕ КАРТИНКИ С IMGUR — РАБОТАЮТ)
+  //  ДАННЫЕ ИГР (РЕАЛЬНЫЕ КАРТИНКИ ДЛЯ ДВУХ ИГР)
   // --------------------------------------------------------------
   const games = [
     {
@@ -81,12 +81,12 @@
       status: "🚀 Ранний доступ",
       shortDesc: "Хардкорный одиночный симулятор выживания в постапокалиптической приграничной зоне.",
       fullDesc: "Road to Vostok — хардкорная survival игра. Действие происходит в постапокалиптической зоне отчуждения на границе. Игрок собирает ресурсы, улучшает экипировку, пробивается через опасные локации с перманентной смертью.",
-      poster: "https://i.imgur.com/FoP7t2M.jpg",  // постер Road to Vostok (заглушка, но рабочий)
+      poster: "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_poster.jpg",
       trailer: "https://www.youtube.com/embed/OTFgTRsz43Q?autoplay=1&mute=1&loop=1&playlist=OTFgTRsz43Q&controls=0&modestbranding=1&showinfo=0&rel=0",
       screenshots: [
-        "https://i.imgur.com/placeholder1.jpg",
-        "https://i.imgur.com/placeholder2.jpg",
-        "https://i.imgur.com/placeholder3.jpg"
+        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr1.jpg",
+        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr2.jpg",
+        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr3.jpg"
       ],
       specs: { release: "7 апреля 2026 (Ранний доступ)", developer: "Antti", publisher: "Road to Vostok Ltd", engine: "Unity", platform: "PC (Steam)" },
       steamLink: "https://store.steampowered.com/app/1963610/Road_to_Vostok/"
@@ -98,9 +98,13 @@
       status: "🕒 В разработке (2026)",
       shortDesc: "Кибернуарный боевик от создателей The Ascent. Город без правил, нелинейный сюжет.",
       fullDesc: "NO LAW — кибернуарный экшен от первого лица от создателей The Ascent. Действие в городе Порт Дезайр, погрязшем в беззаконии.",
-      poster: "https://i.imgur.com/FoP7t2M.jpg",
+      poster: "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_poster.jpg",
       trailer: "https://www.youtube.com/embed/uD6kFXZlX00?autoplay=1&mute=1&loop=1&playlist=uD6kFXZlX00&controls=0&modestbranding=1&showinfo=0&rel=0",
-      screenshots: ["https://i.imgur.com/placeholder1.jpg", "https://i.imgur.com/placeholder2.jpg"],
+      screenshots: [
+        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr1.jpg",
+        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr2.jpg",
+        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr3.jpg"
+      ],
       specs: { release: "2026 (дата уточняется)", developer: "Neon Giant", publisher: "KRAFTON", engine: "Unreal Engine 4", platform: "PC, PS5, Xbox" },
       steamLink: "https://store.steampowered.com/app/2674320/NO_LAW/"
     },
@@ -111,9 +115,13 @@
       status: "✅ Вышла (30 апреля 2026)",
       shortDesc: "Нарративный шутер. Ты — Нора, застрявшая в параллельном измерении. Мрачная атмосфера, стимпанк-Берлин.",
       fullDesc: "INDUSTRIA 2 — сиквел инди-хита. Нора пытается вернуться домой из параллельного мира, поглощённого ИИ.",
-      poster: "https://i.imgur.com/FoP7t2M.jpg",
+      poster: "https://placehold.co/600x338/1e293b/ffb347?text=INDUSTRIA+2+Poster",
       trailer: "https://www.youtube.com/embed/EDWeb7r26ao?autoplay=1&mute=1&loop=1&playlist=EDWeb7r26ao&controls=0&modestbranding=1&showinfo=0&rel=0",
-      screenshots: ["https://i.imgur.com/placeholder1.jpg", "https://i.imgur.com/placeholder2.jpg", "https://i.imgur.com/placeholder3.jpg"],
+      screenshots: [
+        "https://placehold.co/300x169/1e293b/ffb347?text=Industria+2+scr1",
+        "https://placehold.co/300x169/1e293b/ffb347?text=Industria+2+scr2",
+        "https://placehold.co/300x169/1e293b/ffb347?text=Industria+2+scr3"
+      ],
       specs: { release: "30 апреля 2026", developer: "Bleakmill", publisher: "Headup", engine: "Unreal Engine 5", platform: "PC (Steam)" },
       steamLink: "https://store.steampowered.com/app/2154070/INDUSTRIA_2/"
     },
@@ -124,9 +132,12 @@
       status: "🕒 В разработке (после 2026)",
       shortDesc: "Кооперативный экшен-хоррор в средневековом мире, охваченном чумой.",
       fullDesc: "Blight: Survival — кооперативная игра на выживание. Вместе с друзьями исследуйте проклятые земли, сражайтесь с монстрами.",
-      poster: "https://i.imgur.com/FoP7t2M.jpg",
+      poster: "https://placehold.co/600x338/1e293b/ffb347?text=Blight+Poster",
       trailer: "https://www.youtube.com/embed/voOCzFCHRI4?autoplay=1&mute=1&loop=1&playlist=voOCzFCHRI4&controls=0&modestbranding=1&showinfo=0&rel=0",
-      screenshots: ["https://i.imgur.com/placeholder1.jpg", "https://i.imgur.com/placeholder2.jpg"],
+      screenshots: [
+        "https://placehold.co/300x169/1e293b/ffb347?text=Blight+scr1",
+        "https://placehold.co/300x169/1e293b/ffb347?text=Blight+scr2"
+      ],
       specs: { release: "Ожидается после 2026", developer: "Haenir Studio", publisher: "Unknown", engine: "Unreal Engine 4", platform: "PC (Steam)" },
       steamLink: "https://store.steampowered.com/app/1963610/Blight_Survival/"
     },
@@ -137,14 +148,18 @@
       status: "✅ Вышла (19 февраля 2026)",
       shortDesc: "Продолжение приключений гоблина-вора Стикса. Стелс-экшен с огромными локациями.",
       fullDesc: "Styx: Blades of Greed — возвращение знаменитого гоблина-вора. Планируйте ограбления, используйте скрытность.",
-      poster: "https://i.imgur.com/FoP7t2M.jpg",
+      poster: "https://placehold.co/600x338/1e293b/ffb347?text=Styx+Poster",
       trailer: "https://www.youtube.com/embed/Ygt8NtWBCsM?autoplay=1&mute=1&loop=1&playlist=Ygt8NtWBCsM&controls=0&modestbranding=1&showinfo=0&rel=0",
-      screenshots: ["https://i.imgur.com/placeholder1.jpg", "https://i.imgur.com/placeholder2.jpg"],
+      screenshots: [
+        "https://placehold.co/300x169/1e293b/ffb347?text=Styx+scr1",
+        "https://placehold.co/300x169/1e293b/ffb347?text=Styx+scr2"
+      ],
       specs: { release: "19 февраля 2026", developer: "Cyanide Studio", publisher: "Nacon", engine: "Unreal Engine 4", platform: "PC, PS5, Xbox" },
       steamLink: "https://store.steampowered.com/app/1963610/Styx_Blades_of_Greed/"
     }
   ];
 
+  // Генерация карточек
   const grid = document.getElementById('gamesGrid');
   function renderCards() {
     grid.innerHTML = '';
@@ -213,4 +228,3 @@
 </script>
 </body>
 </html>
-
