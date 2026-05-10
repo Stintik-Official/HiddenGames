@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>IndieHaven — каталог инди-игр</title>
+  <title>LostGames — каталог игр</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
     * {
@@ -13,95 +13,56 @@
     }
 
     body {
-      background: #0a0c10;
+      background: #0f0f0f;
       font-family: 'Inter', sans-serif;
-      color: #eef2ff;
+      color: #f0f0f0;
       line-height: 1.5;
     }
 
-    /* Шапка */
+    /* Шапка (как на giftovik.com: просто крупный текст) */
     .site-header {
       text-align: center;
       padding: 48px 24px 32px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid #222;
     }
     .site-header h1 {
-      font-size: 2.8rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #fff, #ffb347);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
+      font-size: 3rem;
+      font-weight: 700;
       letter-spacing: -0.02em;
+      color: #fff;
     }
     .site-header p {
-      color: #9aa4b2;
+      color: #aaa;
       margin-top: 12px;
       font-size: 0.9rem;
-    }
-
-    /* Панель фильтров и сортировки */
-    .toolbar {
-      max-width: 1400px;
-      margin: 0 auto 24px;
-      padding: 0 24px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-    .filter-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .filter-btn, .sort-btn {
-      background: #1e232c;
-      border: none;
-      color: #cbd5e6;
-      padding: 6px 16px;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .filter-btn.active, .sort-btn.active {
-      background: #ffb347;
-      color: #0a0c10;
-    }
-    .filter-btn:hover, .sort-btn:hover {
-      background: #2a313c;
-      color: #fff;
     }
 
     /* Сетка карточек */
     .games-grid {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 24px 24px 48px;
+      padding: 48px 24px;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 32px;
     }
 
-    /* Карточка */
+    /* Карточка (белая на тёмном фоне, строгие границы) */
     .game-card {
-      background: #13171d;
-      border-radius: 24px;
+      background: #1a1a1a;
+      border-radius: 16px;
       overflow: hidden;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      border: 1px solid #222a34;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 1px solid #2a2a2a;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
     .game-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 32px -12px rgba(0,0,0,0.5);
-      border-color: #ffb347;
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -8px rgba(0,0,0,0.4);
+      border-color: #ff8c00;
     }
 
-    /* Медиа-блок */
+    /* Медиа-блок (картинка + видео) */
     .media-block {
       position: relative;
       background: #000;
@@ -140,23 +101,23 @@
     .game-title {
       font-size: 1.35rem;
       font-weight: 700;
+      margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 8px;
+      gap: 8px;
     }
     .game-title span {
       font-size: 0.7rem;
-      font-weight: 600;
-      background: rgba(255,179,71,0.15);
+      font-weight: 500;
+      background: #2a2a2a;
       padding: 4px 12px;
       border-radius: 40px;
-      color: #ffb347;
+      color: #ff8c00;
     }
     .short-desc {
-      color: #acb6c8;
+      color: #aaa;
       font-size: 0.85rem;
       margin: 12px 0 18px;
       line-height: 1.5;
@@ -165,43 +126,39 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-    .card-buttons {
+    /* Ссылки на магазины */
+    .store-links {
       display: flex;
-      gap: 12px;
       flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
     }
-    .btn {
-      background: #2a313c;
+    .store-btn {
+      background: #2a2a2a;
       border: none;
-      padding: 8px 18px;
+      padding: 6px 14px;
       border-radius: 40px;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       font-weight: 500;
       cursor: pointer;
       transition: 0.2s;
-      color: white;
+      color: #ddd;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       font-family: inherit;
     }
-    .btn-steam {
-      background: #1b6b50;
-    }
-    .btn-steam:hover {
-      background: #1f8a68;
-    }
-    .btn-desc {
-      background: #2a313c;
-      border: 1px solid #3a4452;
-    }
-    .btn-desc:hover {
-      background: #3a4452;
-      border-color: #ffb347;
-    }
+    .store-btn.steam { background: #1b6b50; color: white; }
+    .store-btn.steam:hover { background: #1f8a68; }
+    .store-btn.torrent { background: #2a2a2a; border: 1px solid #ff8c00; }
+    .store-btn.torrent:hover { background: #ff8c00; color: #000; }
+    .store-btn.vkplay { background: #0077ff; }
+    .store-btn.vkplay:hover { background: #0066cc; }
+    .store-btn.epic { background: #2a2a2a; border: 1px solid #fff; }
+    .store-btn.epic:hover { background: #fff; color: #000; }
 
-    /* Модальное окно */
+    /* Модальное окно (скриншоты) */
     .modal {
       display: none;
       position: fixed;
@@ -217,9 +174,9 @@
       padding: 24px;
     }
     .modal-content {
-      background: #13171d;
-      border: 1px solid #2a313c;
-      border-radius: 28px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 24px;
       max-width: 1000px;
       width: 100%;
       max-height: 85vh;
@@ -237,7 +194,7 @@
       transition: 0.2s;
     }
     .modal-close:hover {
-      color: #ffb347;
+      color: #ff8c00;
     }
     .modal h2 {
       font-size: 1.8rem;
@@ -245,20 +202,12 @@
     }
     .status-badge {
       display: inline-block;
-      margin-top: 4px;
-      margin-bottom: 12px;
+      margin: 4px 0 12px;
       font-size: 0.75rem;
-      background: rgba(255,179,71,0.2);
+      background: rgba(255,140,0,0.2);
       padding: 4px 12px;
       border-radius: 20px;
-      color: #ffb347;
-    }
-    .modal-subhead {
-      color: #ffb347;
-      border-left: 3px solid #ffb347;
-      padding-left: 12px;
-      margin: 20px 0 16px;
-      font-weight: 600;
+      color: #ff8c00;
     }
     .screenshots-gallery {
       display: grid;
@@ -269,95 +218,46 @@
     .screenshots-gallery img {
       width: 100%;
       border-radius: 12px;
-      border: 1px solid #2a313c;
+      border: 1px solid #2a2a2a;
       cursor: pointer;
-      transition: 0.2s;
-    }
-    .screenshots-gallery img:hover {
-      transform: scale(1.02);
-      border-color: #ffb347;
     }
     .specs {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      background: #0f1218;
+      background: #0f0f0f;
       padding: 16px;
-      border-radius: 20px;
+      border-radius: 16px;
       margin: 16px 0;
     }
-    .specs p {
-      font-size: 0.85rem;
-      color: #cbd5e6;
-    }
-    .specs strong {
-      color: #ffb347;
-    }
+    .specs p { font-size: 0.85rem; color: #bbb; }
+    .specs strong { color: #ff8c00; }
+
     .footer {
       text-align: center;
       padding: 32px 24px;
-      border-top: 1px solid #22282f;
+      border-top: 1px solid #222;
       font-size: 0.75rem;
-      color: #5f6c82;
+      color: #666;
     }
-    .footer a {
-      color: #ffb347;
-      text-decoration: none;
-    }
-
-    /* Заглушка для отсутствующих картинок */
-    .poster-img::before {
-      content: "🎮";
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #1e293b;
-      color: #ffb347;
-      font-size: 3rem;
-      height: 100%;
-      width: 100%;
-    }
+    .footer a { color: #ff8c00; text-decoration: none; }
 
     @media (max-width: 860px) {
-      .games-grid {
-        gap: 20px;
-        padding: 24px 16px;
-      }
-      .toolbar {
-        padding: 0 16px;
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .filter-group {
-        justify-content: center;
-      }
+      .games-grid { gap: 20px; padding: 24px 16px; }
     }
   </style>
 </head>
 <body>
 
 <div class="site-header">
-  <h1>🎮 IndieHaven</h1>
-  <p>Каталог лучших инди-игр. Наведи на карточку — запустится трейлер. Нажми «Описание» — увидишь подробности.</p>
-</div>
-
-<div class="toolbar">
-  <div class="filter-group" id="filterGroup">
-    <button class="filter-btn active" data-filter="all">Все</button>
-    <button class="filter-btn" data-filter="released">✅ Вышедшие</button>
-    <button class="filter-btn" data-filter="early">🚀 Ранний доступ</button>
-    <button class="filter-btn" data-filter="upcoming">🕒 В разработке</button>
-  </div>
-  <div class="filter-group" id="sortGroup">
-    <button class="sort-btn" data-sort="name">По названию</button>
-    <button class="sort-btn" data-sort="date">По дате релиза</button>
-  </div>
+  <h1>LostGames</h1>
+  <p>Каталог лучших инди-игр, которые стоит найти. Наведи на карточку — запустится трейлер.</p>
 </div>
 
 <div class="games-grid" id="gamesGrid"></div>
 
 <footer class="footer">
-  <p>🎮 IndieHaven — некоммерческий каталог. Все ссылки ведут в Steam.</p>
+  <p>LostGames — некоммерческий каталог. Ссылки на Steam, Epic Games, торренты и другие источники.</p>
   <p><a href="#">GitHub</a> · <a href="#">Telegram</a></p>
 </footer>
 
@@ -370,16 +270,15 @@
 
 <script>
   // --------------------------------------------------------------
-  //  ДАННЫЕ ИГР (с полными описаниями, статусами для фильтрации)
+  //  ДАННЫЕ ИГР (порядок: Road to Vostok, NO LAW, INDUSTRIA 2, Blight, Styx)
   // --------------------------------------------------------------
-  const gamesData = [
+  const games = [
     {
       id: "roadtovostok",
       title: "Road to Vostok",
       genre: "Hardcore Survival",
-      status: "early",
       statusText: "🚀 Ранний доступ",
-      shortDesc: "Хардкорный одиночный симулятор выживания в постапокалиптической приграничной зоне.",
+      shortDesc: "Хардкорный одиночный симулятор выживания в постапокалиптической приграничной зоне. Реализм, перманентная смерть, глубокий лутинг.",
       fullDesc: "Road to Vostok — хардкорная survival игра. Действие происходит в постапокалиптической зоне отчуждения на границе. Игрок собирает ресурсы, улучшает экипировку, пробивается через опасные локации с перманентной смертью.",
       poster: "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_poster.jpg",
       trailer: "https://www.youtube.com/embed/OTFgTRsz43Q?autoplay=1&mute=1&loop=1&playlist=OTFgTRsz43Q&controls=0&modestbranding=1&showinfo=0&rel=0",
@@ -389,17 +288,20 @@
         "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr3.jpg"
       ],
       specs: { release: "7 апреля 2026 (Ранний доступ)", developer: "Antti", publisher: "Road to Vostok Ltd", engine: "Unity", platform: "PC (Steam)" },
-      steamLink: "https://store.steampowered.com/app/1963610/Road_to_Vostok/",
-      releaseDate: "2026-04-07"
+      links: {
+        steam: "https://store.steampowered.com/app/1963610/Road_to_Vostok/",
+        torrent: "#", // замени на реальную ссылку
+        vkplay: "#",
+        epic: "#"
+      }
     },
     {
       id: "nolaw",
       title: "NO LAW",
       genre: "Cyberpunk FPS",
-      status: "upcoming",
       statusText: "🕒 В разработке (2026)",
-      shortDesc: "Кибернуарный боевик от создателей The Ascent. Город без правил, нелинейный сюжет.",
-      fullDesc: "NO LAW — кибернуарный экшен от первого лица от создателей The Ascent. Действие в городе Порт Дезайр, погрязшем в беззаконии.",
+      shortDesc: "Кибернуарный боевик от создателей The Ascent. Город без правил, нелинейный сюжет, зрелищные перестрелки.",
+      fullDesc: "NO LAW — кибернуарный экшен от первого лица от создателей The Ascent. Действие в городе Порт Дезайр, погрязшем в беззаконии. Особенности: открытый мир, глубокий сюжет с нелинейными выборами.",
       poster: "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_poster.jpg",
       trailer: "https://www.youtube.com/embed/uD6kFXZlX00?autoplay=1&mute=1&loop=1&playlist=uD6kFXZlX00&controls=0&modestbranding=1&showinfo=0&rel=0",
       screenshots: [
@@ -408,137 +310,115 @@
         "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr3.jpg"
       ],
       specs: { release: "2026 (дата уточняется)", developer: "Neon Giant", publisher: "KRAFTON", engine: "Unreal Engine 4", platform: "PC, PS5, Xbox" },
-      steamLink: "https://store.steampowered.com/app/2674320/NO_LAW/",
-      releaseDate: "2026-12-31"
+      links: {
+        steam: "https://store.steampowered.com/app/2674320/NO_LAW/",
+        torrent: "#",
+        vkplay: "#",
+        epic: "#"
+      }
     },
     {
       id: "industria2",
       title: "INDUSTRIA 2",
       genre: "Narrative FPS",
-      status: "released",
       statusText: "✅ Вышла (30 апреля 2026)",
-      shortDesc: "Нарративный шутер. Ты — Нора, застрявшая в параллельном измерении. Мрачная атмосфера, стимпанк-Берлин.",
-      fullDesc: "INDUSTRIA 2 — сиквел инди-хита. Нора пытается вернуться домой из параллельного мира, поглощённого ИИ.",
-      poster: "https://placehold.co/600x338/1e293b/ffb347?text=INDUSTRIA+2+Poster",
+      shortDesc: "Нарративный шутер от первого лица. Ты — Нора, застрявшая в параллельном измерении. Мрачная атмосфера, стимпанк-Берлин, Unreal Engine 5.",
+      fullDesc: "INDUSTRIA 2 — сиквел инди-хита. Нора пытается вернуться домой из параллельного мира, поглощённого ИИ. Исследуйте руины загадочного мегаполиса, сражайтесь с врагами, используйте физику и иммерсивный инвентарь.",
+      poster: "https://placehold.co/600x338/1e293b/ff8c00?text=INDUSTRIA+2+Poster",
       trailer: "https://www.youtube.com/embed/EDWeb7r26ao?autoplay=1&mute=1&loop=1&playlist=EDWeb7r26ao&controls=0&modestbranding=1&showinfo=0&rel=0",
       screenshots: [
-        "https://placehold.co/300x169/1e293b/ffb347?text=Industria+2+scr1",
-        "https://placehold.co/300x169/1e293b/ffb347?text=Industria+2+scr2",
-        "https://placehold.co/300x169/1e293b/ffb347?text=Industria+2+scr3"
+        "https://placehold.co/300x169/1e293b/ff8c00?text=Industria+2+scr1",
+        "https://placehold.co/300x169/1e293b/ff8c00?text=Industria+2+scr2",
+        "https://placehold.co/300x169/1e293b/ff8c00?text=Industria+2+scr3"
       ],
       specs: { release: "30 апреля 2026", developer: "Bleakmill", publisher: "Headup", engine: "Unreal Engine 5", platform: "PC (Steam)" },
-      steamLink: "https://store.steampowered.com/app/2154070/INDUSTRIA_2/",
-      releaseDate: "2026-04-30"
+      links: {
+        steam: "https://store.steampowered.com/app/2154070/INDUSTRIA_2/",
+        torrent: "#",
+        vkplay: "#",
+        epic: "#"
+      }
     },
     {
       id: "blight",
       title: "Blight: Survival",
       genre: "Co-op Survival Horror",
-      status: "upcoming",
       statusText: "🕒 В разработке (после 2026)",
-      shortDesc: "Кооперативный экшен-хоррор в средневековом мире, охваченном чумой.",
-      fullDesc: "Blight: Survival — кооперативная игра на выживание. Вместе с друзьями исследуйте проклятые земли, сражайтесь с монстрами.",
-      poster: "https://placehold.co/600x338/1e293b/ffb347?text=Blight+Poster",
+      shortDesc: "Кооперативный экшен-хоррор в средневековом мире, охваченном чумой. Сражайтесь с монстрами и ищите лекарство.",
+      fullDesc: "Blight: Survival — кооперативная игра на выживание. Вместе с друзьями исследуйте проклятые земли, сражайтесь с ордами монстров, собирайте ресурсы и улучшайте оружие. Игра поддерживает до 4 игроков.",
+      poster: "https://placehold.co/600x338/1e293b/ff8c00?text=Blight+Poster",
       trailer: "https://www.youtube.com/embed/voOCzFCHRI4?autoplay=1&mute=1&loop=1&playlist=voOCzFCHRI4&controls=0&modestbranding=1&showinfo=0&rel=0",
       screenshots: [
-        "https://placehold.co/300x169/1e293b/ffb347?text=Blight+scr1",
-        "https://placehold.co/300x169/1e293b/ffb347?text=Blight+scr2"
+        "https://placehold.co/300x169/1e293b/ff8c00?text=Blight+scr1",
+        "https://placehold.co/300x169/1e293b/ff8c00?text=Blight+scr2"
       ],
       specs: { release: "Ожидается после 2026", developer: "Haenir Studio", publisher: "Unknown", engine: "Unreal Engine 4", platform: "PC (Steam)" },
-      steamLink: "https://store.steampowered.com/app/1963610/Blight_Survival/",
-      releaseDate: "2027-01-01"
+      links: {
+        steam: "https://store.steampowered.com/app/1963610/Blight_Survival/",
+        torrent: "#",
+        vkplay: "#",
+        epic: "#"
+      }
     },
     {
       id: "styx",
       title: "Styx: Blades of Greed",
       genre: "Stealth Action",
-      status: "released",
       statusText: "✅ Вышла (19 февраля 2026)",
-      shortDesc: "Продолжение приключений гоблина-вора Стикса. Стелс-экшен с огромными локациями.",
-      fullDesc: "Styx: Blades of Greed — возвращение знаменитого гоблина-вора. Планируйте ограбления, используйте скрытность.",
-      poster: "https://placehold.co/600x338/1e293b/ffb347?text=Styx+Poster",
+      shortDesc: "Продолжение приключений гоблина-вора Стикса. Стелс-экшен с огромными локациями и десятками способностей.",
+      fullDesc: "Styx: Blades of Greed — возвращение знаменитого гоблина-вора. Планируйте ограбления, используйте скрытность, создавайте отвлекающие манёвры и применяйте множество приспособлений.",
+      poster: "https://placehold.co/600x338/1e293b/ff8c00?text=Styx+Poster",
       trailer: "https://www.youtube.com/embed/Ygt8NtWBCsM?autoplay=1&mute=1&loop=1&playlist=Ygt8NtWBCsM&controls=0&modestbranding=1&showinfo=0&rel=0",
       screenshots: [
-        "https://placehold.co/300x169/1e293b/ffb347?text=Styx+scr1",
-        "https://placehold.co/300x169/1e293b/ffb347?text=Styx+scr2"
+        "https://placehold.co/300x169/1e293b/ff8c00?text=Styx+scr1",
+        "https://placehold.co/300x169/1e293b/ff8c00?text=Styx+scr2"
       ],
       specs: { release: "19 февраля 2026", developer: "Cyanide Studio", publisher: "Nacon", engine: "Unreal Engine 4", platform: "PC, PS5, Xbox" },
-      steamLink: "https://store.steampowered.com/app/1963610/Styx_Blades_of_Greed/",
-      releaseDate: "2026-02-19"
+      links: {
+        steam: "https://store.steampowered.com/app/1963610/Styx_Blades_of_Greed/",
+        torrent: "#",
+        vkplay: "#",
+        epic: "#"
+      }
     }
   ];
 
-  let currentFilter = "all";
-  let currentSort = "name"; // name или date
-
-  function filterAndSortGames() {
-    let filtered = gamesData.filter(game => {
-      if (currentFilter === "all") return true;
-      return game.status === currentFilter;
-    });
-
-    if (currentSort === "name") {
-      filtered.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (currentSort === "date") {
-      filtered.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
-    }
-    return filtered;
-  }
-
+  const grid = document.getElementById('gamesGrid');
   function renderCards() {
-    const grid = document.getElementById('gamesGrid');
-    const filtered = filterAndSortGames();
     grid.innerHTML = '';
-    filtered.forEach(game => {
+    games.forEach(game => {
       const card = document.createElement('div');
       card.className = 'game-card';
+      // Формируем блок ссылок (можно заменить потом)
+      const storeLinks = `
+        <div class="store-links">
+          <a href="${game.links.steam}" target="_blank" class="store-btn steam">Steam</a>
+          <a href="${game.links.torrent}" target="_blank" class="store-btn torrent">Торрент</a>
+          <a href="${game.links.vkplay}" target="_blank" class="store-btn vkplay">VK Play</a>
+          <a href="${game.links.epic}" target="_blank" class="store-btn epic">Epic</a>
+        </div>
+      `;
       card.innerHTML = `
         <div class="media-block">
           <img class="poster-img" src="${game.poster}" alt="${game.title}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div style="display: none; align-items: center; justify-content: center; background: #1e293b; height: 100%; color: #ffb347; font-size: 2rem;">🎮 ${game.title}</div>
+          <div style="display: none; align-items: center; justify-content: center; background: #1e293b; height: 100%; color: #ff8c00; font-size: 2rem;">🎮 ${game.title}</div>
           <iframe class="trailer-iframe" src="${game.trailer}" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
         <div class="card-content">
           <div class="game-title">${game.title} <span>${game.genre}</span></div>
           <div class="short-desc">${game.shortDesc}</div>
-          <div class="card-buttons">
-            <a href="${game.steamLink}" target="_blank" class="btn btn-steam">В Steam →</a>
-            <button class="btn btn-desc" data-id="${game.id}">📖 Описание</button>
-          </div>
+          ${storeLinks}
+          <button class="store-btn" style="margin-top: 8px; width: auto; background: #2a2a2a; padding: 6px 14px;" data-id="${game.id}">📖 Описание</button>
         </div>
       `;
       grid.appendChild(card);
     });
-    // перепривязываем обработчики
-    document.querySelectorAll('.btn-desc').forEach(btn => {
+    // обработчики кнопок "Описание"
+    document.querySelectorAll('.store-btn[data-id]').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const id = btn.getAttribute('data-id');
-        const game = gamesData.find(g => g.id === id);
+        const game = games.find(g => g.id === id);
         if (game) openModal(game);
-      });
-    });
-  }
-
-  // Фильтры и сортировка
-  function setupControls() {
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const sortBtns = document.querySelectorAll('.sort-btn');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentFilter = btn.getAttribute('data-filter');
-        renderCards();
-      });
-    });
-
-    sortBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        sortBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentSort = btn.getAttribute('data-sort');
-        renderCards();
       });
     });
   }
@@ -547,7 +427,7 @@
   const modal = document.getElementById('modal');
   const modalBody = document.getElementById('modalBody');
   function openModal(game) {
-    const screensHtml = game.screenshots.map(url => `<img src="${url}" alt="screenshot" onclick="window.open('${url}','_blank')" onerror="this.src='https://placehold.co/300x169/1e293b/ffb347?text=No+screenshot'">`).join('');
+    const screensHtml = game.screenshots.map(url => `<img src="${url}" alt="screenshot" onclick="window.open('${url}','_blank')" onerror="this.src='https://placehold.co/300x169/1e293b/ff8c00?text=No+screenshot'">`).join('');
     modalBody.innerHTML = `
       <h2>${game.title}</h2>
       <div class="status-badge">${game.statusText}</div>
@@ -558,12 +438,16 @@
         <p><strong>Движок:</strong> ${game.specs.engine}</p>
         <p><strong>Платформа:</strong> ${game.specs.platform}</p>
       </div>
-      <div class="modal-subhead">📖 Сюжет и особенности</div>
+      <div class="specs" style="margin-top: 0;">
+        <p><strong>Steam:</strong> <a href="${game.links.steam}" target="_blank" style="color:#ff8c00">ссылка</a></p>
+        <p><strong>Торрент:</strong> <a href="${game.links.torrent}" target="_blank" style="color:#ff8c00">ссылка</a></p>
+      </div>
+      <div class="modal-subhead" style="color:#ff8c00; border-left:3px solid #ff8c00; padding-left:12px; margin:20px 0 16px;">📖 Сюжет и особенности</div>
       <p style="margin-bottom: 20px;">${game.fullDesc}</p>
-      <div class="modal-subhead">📸 Скриншоты</div>
+      <div class="modal-subhead" style="color:#ff8c00; border-left:3px solid #ff8c00; padding-left:12px; margin:20px 0 16px;">📸 Скриншоты</div>
       <div class="screenshots-gallery">${screensHtml}</div>
       <div class="card-buttons" style="margin-top: 20px;">
-        <a href="${game.steamLink}" target="_blank" class="btn btn-steam">Перейти в Steam →</a>
+        <a href="${game.links.steam}" target="_blank" class="store-btn steam" style="display:inline-block;">Перейти в Steam →</a>
       </div>
     `;
     modal.style.display = 'flex';
@@ -578,7 +462,6 @@
   modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
   renderCards();
-  setupControls();
 </script>
 </body>
 </html>
