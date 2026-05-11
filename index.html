@@ -4,464 +4,674 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>LostGames — каталог игр</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --bg: #080808;
+      --surface: #111111;
+      --surface2: #181818;
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(255, 120, 0, 0.5);
+      --accent: #ff7800;
+      --accent-dim: rgba(255,120,0,0.12);
+      --accent-glow: rgba(255,120,0,0.25);
+      --text: #f0ece4;
+      --text-muted: #666;
+      --text-sub: #999;
+      --radius: 20px;
+      --radius-sm: 10px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    ::selection { background: var(--accent); color: #000; }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      background: #0f0f0f;
-      font-family: 'Inter', sans-serif;
-      color: #f0f0f0;
-      line-height: 1.5;
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* Шапка (как на giftovik.com: просто крупный текст) */
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+    }
+
+    /* ── HEADER ── */
     .site-header {
-      text-align: center;
-      padding: 48px 24px 32px;
-      border-bottom: 1px solid #222;
-    }
-    .site-header h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #fff;
-    }
-    .site-header p {
-      color: #aaa;
-      margin-top: 12px;
-      font-size: 0.9rem;
-    }
-
-    /* Сетка карточек */
-    .games-grid {
-      max-width: 1400px;
+      padding: 64px 32px 48px;
+      max-width: 1440px;
       margin: 0 auto;
-      padding: 48px 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
       gap: 32px;
+      flex-wrap: wrap;
     }
 
-    /* Карточка (белая на тёмном фоне, строгие границы) */
-    .game-card {
-      background: #1a1a1a;
-      border-radius: 16px;
-      overflow: hidden;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      border: 1px solid #2a2a2a;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    .header-left {}
+
+    .header-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .game-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 24px -8px rgba(0,0,0,0.4);
-      border-color: #ff8c00;
+    .header-eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
     }
 
-    /* Медиа-блок (картинка + видео) */
-    .media-block {
+    .site-header h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+
+    .site-header h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .header-sub {
+      margin-top: 20px;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      max-width: 360px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── CONTROLS ── */
+    .controls {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 32px 32px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .search-wrap {
       position: relative;
-      background: #000;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
+      flex: 1;
+      min-width: 200px;
+      max-width: 340px;
     }
-    .poster-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: opacity 0.3s ease;
-    }
-    .trailer-iframe {
+    .search-wrap svg {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
       pointer-events: none;
     }
-    .game-card:hover .poster-img {
-      opacity: 0;
+    .search-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 10px 16px 10px 40px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      color: var(--text);
+      outline: none;
+      transition: var(--transition);
     }
-    .game-card:hover .trailer-iframe {
-      opacity: 1;
-      pointer-events: auto;
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-dim);
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 9px 18px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .filter-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #000;
     }
 
-    /* Контент карточки */
-    .card-content {
-      padding: 20px;
+    /* ── GRID ── */
+    .games-grid {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 32px 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
     }
-    .game-title {
-      font-size: 1.35rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 8px;
+
+    /* ── CARD ── */
+    .game-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), opacity var(--transition);
+      animation: fadeUp 0.5s ease both;
+      position: relative;
     }
-    .game-title span {
-      font-size: 0.7rem;
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .game-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-hover);
+      box-shadow: 0 24px 48px -12px rgba(0,0,0,0.6), 0 0 0 1px var(--border-hover);
+    }
+    .game-card.hidden { display: none; }
+
+    /* STATUS RIBBON */
+    .status-ribbon {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 10;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
       font-weight: 500;
-      background: #2a2a2a;
-      padding: 4px 12px;
-      border-radius: 40px;
-      color: #ff8c00;
+      letter-spacing: 0.06em;
+      padding: 5px 12px;
+      border-radius: 50px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
+    .status-ribbon.released { background: rgba(40,200,100,0.2); color: #4ade80; border: 1px solid rgba(74,222,128,0.25); }
+    .status-ribbon.early { background: rgba(255,120,0,0.2); color: var(--accent); border: 1px solid rgba(255,120,0,0.3); }
+    .status-ribbon.upcoming { background: rgba(100,150,255,0.15); color: #93c5fd; border: 1px solid rgba(147,197,253,0.25); }
+
+    /* MEDIA */
+    .media-block {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #050505;
+    }
+    .poster-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .trailer-iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: 0;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .game-card:hover .poster-img { opacity: 0; transform: scale(1.04); }
+    .game-card:hover .trailer-iframe { opacity: 1; pointer-events: auto; }
+
+    .poster-fallback {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      background: var(--surface2);
+      color: var(--accent);
+      font-size: 2.5rem;
+    }
+
+    /* CARD CONTENT */
+    .card-content { padding: 22px 22px 20px; }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .genre-tag {
+      font-size: 0.67rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 4px 12px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,120,0,0.2);
+    }
+    .card-year {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .game-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
     .short-desc {
-      color: #aaa;
-      font-size: 0.85rem;
-      margin: 12px 0 18px;
-      line-height: 1.5;
+      color: var(--text-muted);
+      font-size: 0.825rem;
+      line-height: 1.65;
       display: -webkit-box;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      font-weight: 300;
     }
-    /* Ссылки на магазины */
-    .store-links {
+
+    .card-footer {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
+
+    .store-links { display: flex; gap: 8px; flex-wrap: wrap; }
     .store-btn {
-      background: #2a2a2a;
-      border: none;
-      padding: 6px 14px;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: 0.2s;
-      color: #ddd;
-      text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-family: inherit;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: var(--transition);
+      cursor: pointer;
+      background: none;
+      color: inherit;
     }
-    .store-btn.steam { background: #1b6b50; color: white; }
-    .store-btn.steam:hover { background: #1f8a68; }
-    .store-btn.torrent { background: #2a2a2a; border: 1px solid #ff8c00; }
-    .store-btn.torrent:hover { background: #ff8c00; color: #000; }
-    .store-btn.vkplay { background: #0077ff; }
-    .store-btn.vkplay:hover { background: #0066cc; }
-    .store-btn.epic { background: #2a2a2a; border: 1px solid #fff; }
-    .store-btn.epic:hover { background: #fff; color: #000; }
+    .store-btn.steam { background: rgba(27,107,80,0.25); color: #4ade80; border-color: rgba(27,107,80,0.4); }
+    .store-btn.steam:hover { background: rgba(27,107,80,0.5); }
+    .store-btn.torrent { background: var(--accent-dim); color: var(--accent); border-color: rgba(255,120,0,0.3); }
+    .store-btn.torrent:hover { background: var(--accent); color: #000; }
+    .store-btn.vkplay { background: rgba(0,119,255,0.15); color: #60a5fa; border-color: rgba(0,119,255,0.3); }
+    .store-btn.vkplay:hover { background: rgba(0,119,255,0.35); }
+    .store-btn.epic { background: rgba(255,255,255,0.06); color: var(--text-sub); border-color: var(--border); }
+    .store-btn.epic:hover { background: rgba(255,255,255,0.12); color: var(--text); }
 
-    /* Модальное окно (скриншоты) */
-    .modal {
+    .detail-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: color var(--transition);
+      flex-shrink: 0;
+    }
+    .detail-btn:hover { color: var(--accent); }
+    .detail-btn svg { transition: transform var(--transition); }
+    .detail-btn:hover svg { transform: translateX(3px); }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 80px 24px;
+      color: var(--text-muted);
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+    }
+    .empty-state span { font-size: 2.5rem; display: block; margin-bottom: 16px; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       z-index: 1000;
-      justify-content: center;
-      align-items: center;
       padding: 24px;
-    }
-    .modal-content {
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      border-radius: 24px;
-      max-width: 1000px;
-      width: 100%;
-      max-height: 85vh;
+      align-items: center;
+      justify-content: center;
       overflow-y: auto;
-      padding: 28px;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      max-width: 880px;
+      width: 100%;
       position: relative;
+      animation: modalIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      overflow: hidden;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.94) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-hero {
+      position: relative;
+      aspect-ratio: 21/9;
+      background: #050505;
+      overflow: hidden;
+    }
+    .modal-hero img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .modal-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--surface) 0%, transparent 60%);
+    }
+    .modal-hero-title {
+      position: absolute;
+      bottom: 24px;
+      left: 28px;
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
     }
     .modal-close {
       position: absolute;
       top: 16px;
-      right: 20px;
-      font-size: 28px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      font-size: 18px;
       cursor: pointer;
-      color: #aaa;
-      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: var(--transition);
     }
-    .modal-close:hover {
-      color: #ff8c00;
+    .modal-close:hover { background: var(--accent); color: #000; border-color: var(--accent); }
+
+    .modal-body { padding: 28px; }
+
+    .modal-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .modal-badge {
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 50px;
     }
-    .modal h2 {
-      font-size: 1.8rem;
-      margin-bottom: 8px;
+
+    .modal-desc {
+      color: var(--text-sub);
+      font-size: 0.9rem;
+      line-height: 1.75;
+      font-weight: 300;
+      margin-bottom: 24px;
     }
-    .status-badge {
-      display: inline-block;
-      margin: 4px 0 12px;
-      font-size: 0.75rem;
-      background: rgba(255,140,0,0.2);
-      padding: 4px 12px;
-      border-radius: 20px;
-      color: #ff8c00;
+
+    .modal-section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
     }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .spec-item {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+    }
+    .spec-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 4px; }
+    .spec-value { font-size: 0.875rem; font-weight: 500; color: var(--text); }
+
     .screenshots-gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
-      margin: 20px 0;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+      margin-bottom: 24px;
     }
     .screenshots-gallery img {
       width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
       border-radius: 12px;
-      border: 1px solid #2a2a2a;
+      border: 1px solid var(--border);
       cursor: pointer;
+      transition: var(--transition);
     }
-    .specs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      background: #0f0f0f;
-      padding: 16px;
-      border-radius: 16px;
-      margin: 16px 0;
+    .screenshots-gallery img:hover {
+      border-color: var(--accent);
+      transform: scale(1.02);
     }
-    .specs p { font-size: 0.85rem; color: #bbb; }
-    .specs strong { color: #ff8c00; }
 
-    .footer {
-      text-align: center;
-      padding: 32px 24px;
-      border-top: 1px solid #222;
-      font-size: 0.75rem;
-      color: #666;
+    .modal-actions { display: flex; gap: 10px; flex-wrap: wrap; padding-top: 4px; }
+    .modal-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 22px;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      border: 1px solid transparent;
     }
-    .footer a { color: #ff8c00; text-decoration: none; }
+    .modal-action-btn.primary { background: var(--accent); color: #000; }
+    .modal-action-btn.primary:hover { background: #ff9a30; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,120,0,0.3); }
+    .modal-action-btn.secondary { background: var(--surface2); color: var(--text-sub); border-color: var(--border); }
+    .modal-action-btn.secondary:hover { color: var(--text); border-color: var(--text-muted); }
 
-    @media (max-width: 860px) {
-      .games-grid { gap: 20px; padding: 24px 16px; }
+    /* ── FOOTER ── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 32px;
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-left { font-size: 0.78rem; color: var(--text-muted); }
+    .footer-left strong { color: var(--accent); font-weight: 600; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 12px; }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .lightbox-close:hover { background: var(--accent); color: #000; }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .site-header { flex-direction: column; align-items: flex-start; padding: 40px 20px 32px; }
+      .controls { padding: 0 20px 24px; }
+      .games-grid { padding: 0 20px 60px; gap: 16px; grid-template-columns: 1fr; }
+      .site-footer { padding: 24px 20px; }
+      .modal-hero { aspect-ratio: 16/9; }
+      .modal-hero-title { font-size: 1.5rem; left: 20px; bottom: 18px; }
+      .modal-body { padding: 20px; }
+      .specs-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-<div class="site-header">
-  <h1>LostGames</h1>
-  <p>Каталог лучших инди-игр, которые стоит найти. Наведи на карточку — запустится трейлер.</p>
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-left">
+    <div class="header-eyebrow">Indie Game Catalogue</div>
+    <h1>Lost<em>Games</em></h1>
+    <p class="header-sub">Редкие и недооценённые игры, которые стоит найти. Наведи на карточку — запустится трейлер.</p>
+  </div>
+</header>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="search-wrap">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input type="text" class="search-input" placeholder="Поиск игры..." id="searchInput">
+  </div>
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-filter="all">Все</button>
+  </div>
 </div>
 
-<div class="games-grid" id="gamesGrid"></div>
+<!-- GRID -->
+<main class="games-grid" id="gamesGrid"></main>
 
-<footer class="footer">
-  <p>LostGames — некоммерческий каталог. Ссылки на Steam, Epic Games, торренты и другие источники.</p>
-  <p><a href="#">GitHub</a> · <a href="#">Telegram</a></p>
+<!-- FOOTER -->
+<footer>
+  <div class="site-footer">
+    <div class="footer-left"><strong>LostGames</strong> — некоммерческий каталог инди-игр</div>
+    <div class="footer-links">
+      <a href="#">GitHub</a>
+      <a href="#">Telegram</a>
+      <a href="#">О проекте</a>
+    </div>
+  </div>
 </footer>
 
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span class="modal-close">&times;</span>
+<!-- MODAL -->
+<div id="modal" class="modal-overlay" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="Закрыть">&times;</button>
     <div id="modalBody"></div>
   </div>
 </div>
 
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox">
+  <button class="lightbox-close" id="lightboxClose">&times;</button>
+  <img id="lightboxImg" src="" alt="screenshot">
+</div>
+
 <script>
-  // --------------------------------------------------------------
-  //  ДАННЫЕ ИГР (порядок: Road to Vostok, NO LAW, INDUSTRIA 2, Blight, Styx)
-  // --------------------------------------------------------------
-  const games = [
-    {
-      id: "roadtovostok",
-      title: "Road to Vostok",
-      genre: "Hardcore Survival",
-      statusText: "🚀 Ранний доступ",
-      shortDesc: "Хардкорный одиночный симулятор выживания в постапокалиптической приграничной зоне. Реализм, перманентная смерть, глубокий лутинг.",
-      fullDesc: "Road to Vostok — хардкорная survival игра. Действие происходит в постапокалиптической зоне отчуждения на границе. Игрок собирает ресурсы, улучшает экипировку, пробивается через опасные локации с перманентной смертью.",
-      poster: "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_poster.jpg",
-      trailer: "https://www.youtube.com/embed/OTFgTRsz43Q?autoplay=1&mute=1&loop=1&playlist=OTFgTRsz43Q&controls=0&modestbranding=1&showinfo=0&rel=0",
-      screenshots: [
-        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr1.jpg",
-        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr2.jpg",
-        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr3.jpg"
-      ],
-      specs: { release: "7 апреля 2026 (Ранний доступ)", developer: "Antti", publisher: "Road to Vostok Ltd", engine: "Unity", platform: "PC (Steam)" },
-      links: {
-        steam: "https://store.steampowered.com/app/1963610/Road_to_Vostok/",
-        torrent: "#", // замени на реальную ссылку
-        vkplay: "#",
-        epic: "#"
-      }
-    },
-    {
-      id: "nolaw",
-      title: "NO LAW",
-      genre: "Cyberpunk FPS",
-      statusText: "🕒 В разработке (2026)",
-      shortDesc: "Кибернуарный боевик от создателей The Ascent. Город без правил, нелинейный сюжет, зрелищные перестрелки.",
-      fullDesc: "NO LAW — кибернуарный экшен от первого лица от создателей The Ascent. Действие в городе Порт Дезайр, погрязшем в беззаконии. Особенности: открытый мир, глубокий сюжет с нелинейными выборами.",
-      poster: "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_poster.jpg",
-      trailer: "https://www.youtube.com/embed/uD6kFXZlX00?autoplay=1&mute=1&loop=1&playlist=uD6kFXZlX00&controls=0&modestbranding=1&showinfo=0&rel=0",
-      screenshots: [
-        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr1.jpg",
-        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr2.jpg",
-        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr3.jpg"
-      ],
-      specs: { release: "2026 (дата уточняется)", developer: "Neon Giant", publisher: "KRAFTON", engine: "Unreal Engine 4", platform: "PC, PS5, Xbox" },
-      links: {
-        steam: "https://store.steampowered.com/app/2674320/NO_LAW/",
-        torrent: "#",
-        vkplay: "#",
-        epic: "#"
-      }
-    },
-    {
-      id: "industria2",
-      title: "INDUSTRIA 2",
-      genre: "Narrative FPS",
-      statusText: "✅ Вышла (30 апреля 2026)",
-      shortDesc: "Нарративный шутер от первого лица. Ты — Нора, застрявшая в параллельном измерении. Мрачная атмосфера, стимпанк-Берлин, Unreal Engine 5.",
-      fullDesc: "INDUSTRIA 2 — сиквел инди-хита. Нора пытается вернуться домой из параллельного мира, поглощённого ИИ. Исследуйте руины загадочного мегаполиса, сражайтесь с врагами, используйте физику и иммерсивный инвентарь.",
-      poster: "https://placehold.co/600x338/1e293b/ff8c00?text=INDUSTRIA+2+Poster",
-      trailer: "https://www.youtube.com/embed/EDWeb7r26ao?autoplay=1&mute=1&loop=1&playlist=EDWeb7r26ao&controls=0&modestbranding=1&showinfo=0&rel=0",
-      screenshots: [
-        "https://placehold.co/300x169/1e293b/ff8c00?text=Industria+2+scr1",
-        "https://placehold.co/300x169/1e293b/ff8c00?text=Industria+2+scr2",
-        "https://placehold.co/300x169/1e293b/ff8c00?text=Industria+2+scr3"
-      ],
-      specs: { release: "30 апреля 2026", developer: "Bleakmill", publisher: "Headup", engine: "Unreal Engine 5", platform: "PC (Steam)" },
-      links: {
-        steam: "https://store.steampowered.com/app/2154070/INDUSTRIA_2/",
-        torrent: "#",
-        vkplay: "#",
-        epic: "#"
-      }
-    },
-    {
-      id: "blight",
-      title: "Blight: Survival",
-      genre: "Co-op Survival Horror",
-      statusText: "🕒 В разработке (после 2026)",
-      shortDesc: "Кооперативный экшен-хоррор в средневековом мире, охваченном чумой. Сражайтесь с монстрами и ищите лекарство.",
-      fullDesc: "Blight: Survival — кооперативная игра на выживание. Вместе с друзьями исследуйте проклятые земли, сражайтесь с ордами монстров, собирайте ресурсы и улучшайте оружие. Игра поддерживает до 4 игроков.",
-      poster: "https://placehold.co/600x338/1e293b/ff8c00?text=Blight+Poster",
-      trailer: "https://www.youtube.com/embed/voOCzFCHRI4?autoplay=1&mute=1&loop=1&playlist=voOCzFCHRI4&controls=0&modestbranding=1&showinfo=0&rel=0",
-      screenshots: [
-        "https://placehold.co/300x169/1e293b/ff8c00?text=Blight+scr1",
-        "https://placehold.co/300x169/1e293b/ff8c00?text=Blight+scr2"
-      ],
-      specs: { release: "Ожидается после 2026", developer: "Haenir Studio", publisher: "Unknown", engine: "Unreal Engine 4", platform: "PC (Steam)" },
-      links: {
-        steam: "https://store.steampowered.com/app/1963610/Blight_Survival/",
-        torrent: "#",
-        vkplay: "#",
-        epic: "#"
-      }
-    },
-    {
-      id: "styx",
-      title: "Styx: Blades of Greed",
-      genre: "Stealth Action",
-      statusText: "✅ Вышла (19 февраля 2026)",
-      shortDesc: "Продолжение приключений гоблина-вора Стикса. Стелс-экшен с огромными локациями и десятками способностей.",
-      fullDesc: "Styx: Blades of Greed — возвращение знаменитого гоблина-вора. Планируйте ограбления, используйте скрытность, создавайте отвлекающие манёвры и применяйте множество приспособлений.",
-      poster: "https://placehold.co/600x338/1e293b/ff8c00?text=Styx+Poster",
-      trailer: "https://www.youtube.com/embed/Ygt8NtWBCsM?autoplay=1&mute=1&loop=1&playlist=Ygt8NtWBCsM&controls=0&modestbranding=1&showinfo=0&rel=0",
-      screenshots: [
-        "https://placehold.co/300x169/1e293b/ff8c00?text=Styx+scr1",
-        "https://placehold.co/300x169/1e293b/ff8c00?text=Styx+scr2"
-      ],
-      specs: { release: "19 февраля 2026", developer: "Cyanide Studio", publisher: "Nacon", engine: "Unreal Engine 4", platform: "PC, PS5, Xbox" },
-      links: {
-        steam: "https://store.steampowered.com/app/1963610/Styx_Blades_of_Greed/",
-        torrent: "#",
-        vkplay: "#",
-        epic: "#"
-      }
-    }
-  ];
-
-  const grid = document.getElementById('gamesGrid');
-  function renderCards() {
-    grid.innerHTML = '';
-    games.forEach(game => {
-      const card = document.createElement('div');
-      card.className = 'game-card';
-      // Формируем блок ссылок (можно заменить потом)
-      const storeLinks = `
-        <div class="store-links">
-          <a href="${game.links.steam}" target="_blank" class="store-btn steam">Steam</a>
-          <a href="${game.links.torrent}" target="_blank" class="store-btn torrent">Торрент</a>
-          <a href="${game.links.vkplay}" target="_blank" class="store-btn vkplay">VK Play</a>
-          <a href="${game.links.epic}" target="_blank" class="store-btn epic">Epic</a>
-        </div>
-      `;
-      card.innerHTML = `
-        <div class="media-block">
-          <img class="poster-img" src="${game.poster}" alt="${game.title}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div style="display: none; align-items: center; justify-content: center; background: #1e293b; height: 100%; color: #ff8c00; font-size: 2rem;">🎮 ${game.title}</div>
-          <iframe class="trailer-iframe" src="${game.trailer}" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-        <div class="card-content">
-          <div class="game-title">${game.title} <span>${game.genre}</span></div>
-          <div class="short-desc">${game.shortDesc}</div>
-          ${storeLinks}
-          <button class="store-btn" style="margin-top: 8px; width: auto; background: #2a2a2a; padding: 6px 14px;" data-id="${game.id}">📖 Описание</button>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-    // обработчики кнопок "Описание"
-    document.querySelectorAll('.store-btn[data-id]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const id = btn.getAttribute('data-id');
-        const game = games.find(g => g.id === id);
-        if (game) openModal(game);
-      });
-    });
-  }
-
-  // Модальное окно
-  const modal = document.getElementById('modal');
-  const modalBody = document.getElementById('modalBody');
-  function openModal(game) {
-    const screensHtml = game.screenshots.map(url => `<img src="${url}" alt="screenshot" onclick="window.open('${url}','_blank')" onerror="this.src='https://placehold.co/300x169/1e293b/ff8c00?text=No+screenshot'">`).join('');
-    modalBody.innerHTML = `
-      <h2>${game.title}</h2>
-      <div class="status-badge">${game.statusText}</div>
-      <div class="specs">
-        <p><strong>Релиз:</strong> ${game.specs.release}</p>
-        <p><strong>Разработчик:</strong> ${game.specs.developer}</p>
-        <p><strong>Издатель:</strong> ${game.specs.publisher}</p>
-        <p><strong>Движок:</strong> ${game.specs.engine}</p>
-        <p><strong>Платформа:</strong> ${game.specs.platform}</p>
-      </div>
-      <div class="specs" style="margin-top: 0;">
-        <p><strong>Steam:</strong> <a href="${game.links.steam}" target="_blank" style="color:#ff8c00">ссылка</a></p>
-        <p><strong>Торрент:</strong> <a href="${game.links.torrent}" target="_blank" style="color:#ff8c00">ссылка</a></p>
-      </div>
-      <div class="modal-subhead" style="color:#ff8c00; border-left:3px solid #ff8c00; padding-left:12px; margin:20px 0 16px;">📖 Сюжет и особенности</div>
-      <p style="margin-bottom: 20px;">${game.fullDesc}</p>
-      <div class="modal-subhead" style="color:#ff8c00; border-left:3px solid #ff8c00; padding-left:12px; margin:20px 0 16px;">📸 Скриншоты</div>
-      <div class="screenshots-gallery">${screensHtml}</div>
-      <div class="card-buttons" style="margin-top: 20px;">
-        <a href="${game.links.steam}" target="_blank" class="store-btn steam" style="display:inline-block;">Перейти в Steam →</a>
-      </div>
-    `;
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    modal.style.display = 'none';
-    document.body.style.overflow = '';
-  }
-  document.querySelector('.modal-close').addEventListener('click', closeModal);
-  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-
-  renderCards();
-</script>
-</body>
-</html>
+// ─────────────────────────────────────────────
+//  ДАННЫЕ
+// ─────────────────────────────────────────────
+const games = [
+  {
+    id: "roadtovostok",
+    title: "Road to Vostok",
+    genre: "Hardcore Survival",
+    year: "2026",
+    status: "early",
+    statusText: "Ранний доступ",
+    shortDesc: "Хардкорный одиночный симулятор выживания в постапокалиптической приграничной зоне с перманентной смертью.",
+    fullDesc: "Road to Vostok — хардкорная survival игра в постапокалиптической зоне отчуждения на границе. Игрок собирает ресурсы, улучшает экипировку и пробивается через опасные локации. Перманентная смерть делает каждое решение критически важным.",
+    poster: "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_poster.jpg",
+    trailer: "https://www.youtube.com/embed/OTFgTRsz43Q?autoplay=1&mute=1&loop=1&
