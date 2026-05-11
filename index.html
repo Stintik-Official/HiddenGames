@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>LostGames — каталог инди-игр</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -11,373 +13,676 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --bg: #080b10;
+      --bg2: #0d1118;
+      --card: #121824;
+      --card2: #161d2a;
+      --line: rgba(255,255,255,0.08);
+      --line-strong: rgba(255,179,71,0.35);
+      --text: #eef2ff;
+      --muted: #97a3b7;
+      --accent: #ffb347;
+      --accent-soft: rgba(255,179,71,0.14);
+      --purple: #7c5cff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      background: #0f0f11;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
-      color: #e0e0e0;
-      line-height: 1.5;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, #17202d 0, #0b0f16 34%, #07090d 100%);
+      line-height: 1.45;
+      overflow-x: hidden;
     }
 
-    /* центральная узкая лента */
-    .container {
-      max-width: 1100px;
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 34px 34px;
+      opacity: 0.28;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent 92%);
+    }
+
+    .wrap {
+      width: min(1360px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 22px 0 36px;
+      position: relative;
+      z-index: 1;
     }
 
-    /* шапка — лаконичная */
-    .header {
-      padding: 24px 0 16px;
-      border-bottom: 1px solid #1e1e22;
-      margin-bottom: 32px;
+    .site-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 18px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(13, 17, 24, 0.72);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+    }
+
+    .brand h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      background: linear-gradient(135deg, #ffffff 0%, #ffd48f 48%, #ffb347 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .brand p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      max-width: 60ch;
+    }
+
+    .top-nav {
+      display: flex;
       flex-wrap: wrap;
-      gap: 16px;
-    }
-    .logo {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
-      text-decoration: none;
-    }
-    .logo span {
-      color: #c026d3;
-    }
-    .search {
-      flex: 1;
-      max-width: 400px;
-    }
-    .search input {
-      width: 100%;
-      background: #1a1a22;
-      border: 1px solid #2a2a32;
-      border-radius: 8px;
-      padding: 8px 14px;
-      color: #e0e0e0;
-      font-size: 0.85rem;
-      transition: 0.2s;
-    }
-    .search input:focus {
-      outline: none;
-      border-color: #c026d3;
-    }
-    .nav-links {
-      display: flex;
-      gap: 20px;
-    }
-    .nav-links a {
-      color: #aaa;
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: 0.2s;
-    }
-    .nav-links a:hover {
-      color: #c026d3;
+      justify-content: flex-end;
+      gap: 10px;
     }
 
-    /* карточка — широкая, вытянутая */
-    .game-card {
-      display: flex;
-      gap: 20px;
-      background: #131318;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-      transition: all 0.2s ease;
-      border: 1px solid #1f1f26;
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: #d9deea;
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 600;
+      transition: 0.2s ease;
+      white-space: nowrap;
     }
-    .game-card:hover {
+
+    .nav-pill:hover {
       transform: translateY(-2px);
-      background: #18181f;
-      border-color: #c026d3;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      border-color: var(--line-strong);
+      background: rgba(255,179,71,0.08);
+      color: #fff;
     }
 
-    /* обложка — фиксированная ширина */
-    .card-poster {
-      flex-shrink: 0;
-      width: 120px;
-      height: 160px;
-      overflow: hidden;
-      border-radius: 8px;
-      background: #1a1a22;
+    .hero {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 18px;
+      margin-top: 18px;
     }
-    .card-poster img {
+
+    .hero-card {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 24px;
+      background: linear-gradient(180deg, rgba(19,24,35,0.96), rgba(14,18,26,0.96));
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.26);
+    }
+
+    .hero-card h2 {
+      font-size: clamp(1.45rem, 2.6vw, 2.2rem);
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+
+    .hero-card p {
+      color: var(--muted);
+      max-width: 68ch;
+      font-size: 0.95rem;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.45rem;
+      line-height: 1;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 22px;
+      padding: 20px 0 8px;
+    }
+
+    .game-card {
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+    }
+
+    .game-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--line-strong);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.38);
+    }
+
+    .media-block {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .poster-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
-    }
-    .no-poster {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #1a1a22;
-      color: #777;
-      font-size: 0.7rem;
-      text-align: center;
+      transition: opacity 0.25s ease, transform 0.35s ease;
     }
 
-    /* контент карточки */
-    .card-content {
-      flex: 1;
+    .game-card:hover .poster-img {
+      opacity: 0.16;
+      transform: scale(1.04);
+    }
+
+    .poster-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.78));
+    }
+
+    .poster-meta {
       display: flex;
       flex-direction: column;
+      gap: 8px;
     }
-    .card-title {
-      font-size: 1.2rem;
+
+    .tag {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #ffd28a;
+      background: rgba(255,179,71,0.13);
+      border: 1px solid rgba(255,179,71,0.16);
+    }
+
+    .mini {
+      font-size: 0.96rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 6px;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.55);
     }
-    .card-meta {
+
+    .trailer-iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .game-card:hover .trailer-iframe {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .card-content {
+      padding: 18px;
+    }
+
+    .game-title {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 0.7rem;
-      color: #aaa;
-      margin-bottom: 10px;
-      border-bottom: 1px dashed #222;
-      padding-bottom: 6px;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
     }
-    .card-meta span {
-      background: #1a1a22;
-      padding: 2px 8px;
-      border-radius: 20px;
+
+    .game-title h3 {
+      font-size: 1.14rem;
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: -0.03em;
     }
-    .card-description {
-      font-size: 0.8rem;
-      color: #bbb;
-      line-height: 1.4;
-      margin-bottom: 12px;
+
+    .game-title span {
+      flex-shrink: 0;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #cbbfff;
+      border: 1px solid rgba(124,92,255,0.18);
+      background: rgba(124,92,255,0.14);
+      white-space: nowrap;
+    }
+
+    .short-desc {
+      margin: 10px 0 16px;
+      color: #b6bfd0;
+      font-size: 0.88rem;
+      line-height: 1.55;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-    .card-links {
+
+    .store-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-    }
-    .card-links a {
-      background: #1f1f28;
-      color: #ccc;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.7rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: 0.2s;
-    }
-    .card-links a:hover {
-      background: #c026d3;
-      color: #fff;
+      margin: 14px 0 10px;
     }
 
-    /* статус-теги */
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: #2a2f39;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-family: inherit;
+    }
+
+    .store-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .store-btn.steam { background: #1b2838; }
+    .store-btn.steam:hover { background: #2a475e; }
+
+    .store-btn.torrent { background: #1e6f5c; }
+    .store-btn.torrent:hover { background: #2a8b73; }
+
+    .store-btn.vkplay { background: #0077ff; }
+    .store-btn.vkplay:hover { background: #0066cc; }
+
+    .store-btn.epic {
+      background: #202020;
+      border-color: rgba(255,255,255,0.65);
+    }
+
+    .store-btn.epic:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .desc-btn {
+      width: 100%;
+      justify-content: center;
+      margin-top: 8px;
+      padding: 11px;
+      font-size: 0.82rem;
+      background: linear-gradient(135deg, #2a2f39, #202632);
+      border: 1px solid #364150;
+    }
+
+    .desc-btn:hover {
+      border-color: var(--line-strong);
+      background: linear-gradient(135deg, #384150, #2a3340);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      padding: 22px;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 1020px;
+      max-height: 86vh;
+      overflow-y: auto;
+      padding: 28px;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, #151b25, #10151d);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+      animation: modalFadeIn 0.2s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      font-size: 30px;
+      color: #aab2c3;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .modal-close:hover {
+      color: #ffb347;
+      transform: rotate(90deg);
+    }
+
+    .modal h2 {
+      font-size: 1.9rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+
     .status-badge {
       display: inline-block;
-      background: #c026d322;
-      color: #c026d3;
-      padding: 2px 8px;
-      border-radius: 20px;
-      font-size: 0.65rem;
-      font-weight: 600;
-      margin-left: 8px;
+      margin: 6px 0 14px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      color: #ffd28a;
+      background: rgba(255,179,71,0.16);
+      border: 1px solid rgba(255,179,71,0.16);
     }
 
-    /* пагинация (простая, на потом) */
-    .pagination {
-      margin: 32px 0;
-      text-align: center;
+    .modal-subhead {
+      margin: 20px 0 14px;
+      padding-left: 12px;
+      border-left: 3px solid #ffb347;
+      color: #ffd28a;
+      font-weight: 700;
     }
-    .pagination button {
-      background: #1a1a22;
-      border: 1px solid #2a2a32;
-      color: #ccc;
-      padding: 6px 14px;
-      margin: 0 4px;
-      border-radius: 6px;
+
+    .screenshots-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .screenshots-gallery img {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
       cursor: pointer;
-      transition: 0.2s;
+      transition: 0.2s ease;
     }
-    .pagination button:hover {
-      background: #c026d3;
-      border-color: #c026d3;
-      color: #fff;
+
+    .screenshots-gallery img:hover {
+      transform: scale(1.02);
+      border-color: #ffb347;
+    }
+
+    .specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 16px;
+      margin: 16px 0;
+      border-radius: 20px;
+      background: #0b0f15;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .specs p {
+      color: #cbd5e6;
+      font-size: 0.86rem;
+    }
+
+    .specs strong {
+      color: #ffcf7a;
     }
 
     .footer {
+      margin-top: 10px;
+      padding: 30px 16px 8px;
       text-align: center;
-      padding: 32px 0;
-      border-top: 1px solid #1e1e22;
-      margin-top: 32px;
-      font-size: 0.7rem;
-      color: #666;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: #66738a;
+      font-size: 0.78rem;
     }
 
-    @media (max-width: 700px) {
-      .game-card {
+    .footer a {
+      color: #ffcf7a;
+      text-decoration: none;
+    }
+
+    @media (max-width: 920px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .site-header {
         flex-direction: column;
+        align-items: flex-start;
       }
-      .card-poster {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 16/9;
+
+      .top-nav {
+        justify-content: flex-start;
       }
-      .header {
-        flex-direction: column;
-        align-items: stretch;
+
+      .games-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       }
-      .search {
-        max-width: 100%;
+    }
+
+    @media (max-width: 680px) {
+      .wrap {
+        width: min(100% - 24px, 1360px);
+        padding: 16px 0 24px;
+      }
+
+      .site-header,
+      .hero-card,
+      .modal-content {
+        border-radius: 20px;
+        padding: 16px;
+      }
+
+      .games-grid {
+        gap: 16px;
+        padding-top: 16px;
+      }
+
+      .specs {
+        grid-template-columns: 1fr;
+      }
+
+      .store-buttons {
+        gap: 7px;
       }
     }
   </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <a href="#" class="logo">Lost<span>Games</span></a>
-    <div class="search">
-      <input type="text" id="searchInput" placeholder="Поиск игр...">
-    </div>
-    <div class="nav-links">
-      <a href="#">Новинки</a>
-      <a href="#">Жанры</a>
-      <a href="#">Обновления</a>
+  <div class="wrap">
+    <header class="site-header">
+      <div class="brand">
+        <h1>LostGames</h1>
+        <p>Каталог инди-игр с тёмным кинематографичным оформлением и плотной карточной структурой.</p>
+      </div>
+      <nav class="top-nav">
+        <a class="nav-pill" href="#gamesGrid"><i class="fas fa-gamepad"></i> Каталог</a>
+        <a class="nav-pill" href="#"><i class="fas fa-fire"></i> Новинки</a>
+        <a class="nav-pill" href="#"><i class="fas fa-star"></i> Избранное</a>
+        <a class="nav-pill" href="#"><i class="fas fa-search"></i> Поиск</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-card">
+        <h2>Плотный тёмный каталог в духе большого игрового архива, но визуально чище и современнее.</h2>
+        <p>Узкая центральная сетка, вытянутые карточки, мягкий градиентный фон, контрастная типографика, hover-превью с трейлерами и модальное окно с подробностями.</p>
+      </div>
+      <div class="hero-card hero-stats">
+        <div class="stat"><strong>5</strong><span>карточек в демо</span></div>
+        <div class="stat"><strong>4</strong><span>магазинных кнопки</span></div>
+        <div class="stat"><strong>1</strong><span>модальное окно</span></div>
+        <div class="stat"><strong>3</strong><span>уровня иерархии текста</span></div>
+      </div>
+    </section>
+
+    <div class="games-grid" id="gamesGrid"></div>
+
+    <footer class="footer">
+      <p>LostGames — некоммерческий каталог. Ссылки ведут на официальные страницы.</p>
+      <p><a href="#">GitHub</a> · <a href="#">Telegram</a></p>
+    </footer>
+  </div>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <div id="modalBody"></div>
     </div>
   </div>
 
-  <div id="gamesContainer"></div>
-
-  <div class="footer">
-    LostGames — некоммерческий каталог инди-игр. Все права принадлежат разработчикам.
-  </div>
-</div>
-
-<script>
-  // --------------------------------------------------------------
-  //  ДАННЫЕ ИГР (постеры пока заглушки, ты заменишь позже)
-  // --------------------------------------------------------------
-  const gamesData = [
-    {
-      title: "Road to Vostok",
-      genre: "Hardcore Survival",
-      version: "Ранний доступ",
-      status: "v0.8",
-      year: "2026",
-      description: "Хардкорный одиночный симулятор выживания в постапокалиптической приграничной зоне. Собирай ресурсы, улучшай экипировку и пытайся выжить.",
-      poster: "https://placehold.co/120x160/1a1a22/c026d3?text=Road+to+Vostok",
-      links: {
-        steam: "https://store.steampowered.com/app/1963610/Road_to_Vostok/",
-        torrent: "#"
-      }
-    },
-    {
-      title: "NO LAW",
-      genre: "Cyberpunk FPS",
-      version: "Скоро",
-      status: "разработка",
-      year: "2026",
-      description: "Кибернуарный боевик от создателей The Ascent. Открытый город, выбор, последствия.",
-      poster: "https://placehold.co/120x160/1a1a22/c026d3?text=NO+LAW",
-      links: {
-        steam: "https://store.steampowered.com/app/2674320/NO_LAW/",
-        torrent: "#"
-      }
-    },
-    {
-      title: "INDUSTRIA 2",
-      genre: "Narrative FPS",
-      version: "Вышла",
-      status: "1.0",
-      year: "2026",
-      description: "Сиквел инди-хита. Нора пытается вернуться домой из параллельного мира, поглощённого ИИ.",
-      poster: "https://placehold.co/120x160/1a1a22/c026d3?text=INDUSTRIA+2",
-      links: {
-        steam: "https://store.steampowered.com/app/2154070/INDUSTRIA_2/",
-        torrent: "#"
-      }
-    },
-    {
-      title: "Blight: Survival",
-      genre: "Co-op Survival Horror",
-      version: "Скоро",
-      status: "демо",
-      year: "2026",
-      description: "Средневековый хоррор с кооперативом. Исследуйте проклятые земли, сражайтесь с монстрами.",
-      poster: "https://placehold.co/120x160/1a1a22/c026d3?text=Blight+Survival",
-      links: {
-        steam: "https://store.steampowered.com/app/1963610/Blight_Survival/",
-        torrent: "#"
-      }
-    },
-    {
-      title: "Styx: Blades of Greed",
-      genre: "Stealth Action",
-      version: "Вышла",
-      status: "1.0",
-      year: "2026",
-      description: "Возвращение знаменитого гоблина-вора. Стелс, засады, планирование.",
-      poster: "https://placehold.co/120x160/1a1a22/c026d3?text=Styx",
-      links: {
-        steam: "https://store.steampowered.com/app/3290690/Styx_Blades_of_Greed/",
-        torrent: "#"
-      }
-    }
-  ];
-
-  function renderCards(games) {
-    const container = document.getElementById('gamesContainer');
-    if (!container) return;
-    container.innerHTML = '';
-    games.forEach(game => {
-      const card = document.createElement('div');
-      card.className = 'game-card';
-      // статус-бейдж
-      const statusBadge = game.status ? `<span class="status-badge">${game.status}</span>` : '';
-      card.innerHTML = `
-        <div class="card-poster">
-          ${game.poster ? `<img src="${game.poster}" alt="${game.title}">` : `<div class="no-poster">no image</div>`}
-        </div>
-        <div class="card-content">
-          <div class="card-title">
-            ${game.title} ${statusBadge}
-          </div>
-          <div class="card-meta">
-            <span>${game.genre}</span>
-            <span>${game.version}</span>
-            ${game.year ? `<span>${game.year}</span>` : ''}
-          </div>
-          <div class="card-description">${game.description}</div>
-          <div class="card-links">
-            ${game.links.steam ? `<a href="${game.links.steam}" target="_blank" rel="noopener">Steam</a>` : ''}
-            ${game.links.torrent && game.links.torrent !== '#' ? `<a href="${game.links.torrent}" target="_blank" rel="noopener">Торрент</a>` : ''}
-          </div>
-        </div>
-      `;
-      container.appendChild(card);
-    });
-  }
-
-  // поиск
-  const searchInput = document.getElementById('searchInput');
-  function filterGames() {
-    const query = searchInput.value.toLowerCase();
-    const filtered = gamesData.filter(game => game.title.toLowerCase().includes(query));
-    renderCards(filtered);
-  }
-  searchInput.addEventListener('input', filterGames);
-
-  // начальный рендер
-  renderCards(gamesData);
-</script>
-</body>
-</html>
+  <script>
+    const games = [
+      {
+        id: 'roadtovostok',
+        title: 'Road to Vostok',
+        genre: 'Hardcore Survival',
+        statusText: '🚀 Ранний доступ',
+        shortDesc: 'Хардкорный одиночный симулятор выживания в постапокалиптической приграничной зоне. Реализм, перманентная смерть, глубокий лутинг.',
+        fullDesc: 'Road to Vostok — хардкорная survival игра. Действие в постапокалиптической зоне отчуждения на границе Финляндии и России. Игрок собирает ресурсы, улучшает экипировку, пробивается через опасные локации с перманентной смертью.',
+        poster: 'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_poster.jpg',
+        trailer: 'https://www.youtube.com/embed/OTFgTRsz43Q?autoplay=1&mute=1&loop=1&playlist=OTFgTRsz43Q&controls=0&modestbranding=1&showinfo=0&rel=0',
+        screenshots: [
+          'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr1.jpg',
+          'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr2.jpg',
+          'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr3.jpg'
+        ],
+        specs: { release: '7 апреля 2026 (Ранний доступ)', developer: 'Antti', publisher: 'Road to Vostok Ltd', engine: 'Unity', platform: 'PC (Steam)' },
+        links: {
+          steam: 'https://store.steampowered.com/app/1963610/Road_to_Vostok/',
+          torrent: '#',
+          vkplay: '#',
+          epic: '#'
+        }
+      },
+      {
+        id: 'nolaw',
+        title: 'NO LAW',
+        genre: 'Cyberpunk FPS',
+        statusText: '🕒 Скоро (добавить в список желаемого)',
+        shortDesc: 'Кибернуарный боевик от создателей The Ascent. Город без правил, нелинейный сюжет, зрелищные перестрелки.',
+        fullDesc: 'NO LAW — кибернуарный экшен от первого лица от создателей The Ascent. Действие в городе Порт Дезайр, погрязшем в беззаконии. Открытый мир, глубокий сюжет, убийство любого NPC влияет на историю.',
+        poster: 'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_poster.jpg',
+        trailer: 'https://www.youtube.com/embed/uD6kFXZlX00?autoplay=1&mute=1&loop=1&playlist=uD6kFXZlX00&controls=0&modestbranding=1&showinfo=0&rel=0',
+        screenshots: [
+          'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr1.jpg',
+          'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr2.jpg',
+          'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr3.jpg'
+        ],
+        specs: { release: '2026 (дата уточняется)', developer: 'Neon Giant', publisher: 'KRAFTON', engine: 'Unreal Engine 4', platform: 'PC, PS5, Xbox' },
+        links: {
+          steam: 'https://store.steampowered.com/app/2674320/NO_LAW/',
+          torrent: '#',
+          vkplay: '#',
+          epic: '#'
+        }
+      },
+      {
+        id: 'industria2',
+        title: 'INDUSTRIA 2',
+        genre: 'Narrative FPS',
+        statusText: '✅ Вышла (30 апреля 2026)',
+        shortDesc: 'Нарративный шутер от первого лица. Ты — Нора, застрявшая в параллельном измерении. Мрачная атмосфера, стимпанк-Берлин, Unreal Engine 5.',
+        fullDesc: 'INDUSTRIA 2 — сиквел инди-хита. Нора пытается вернуться домой из параллельного мира, поглощённого ИИ. Исследуйте руины мегаполиса, сражайтесь с врагами, используйте физику и иммерсивный инвентарь.',
+        poster: 'https://placehold.co/600x338/1e293b/ffb347?text=INDUSTRIA+2+Poster',
+        trailer: 'https://www.youtube.com/embed/EDWeb7r26ao?autoplay=1&mute=1&loop=1&playlist=EDWeb7r26ao&controls=0&modestbranding=1&showinfo=0&rel=0',
+        screenshots: [
+          'https://placehold.co/300x169/1e293b/ffb347?text=Industria+2+scr1',
+          'https://placehold.co/300x169/1e293b/ffb347?text=Industria+2+scr2',
+          'https://placehold.co/300x169/1e293b/ffb347?text=Industria+2+scr3'
+        ],
+        specs: { release: '30 апреля 2026', developer: 'Bleakmill', publisher: 'Headup', engine: 'Unreal Engine 5', platform: 'PC (Steam)' },
+        links: {
+          steam: 'https://store.steampowered.com/app/2154070/INDUSTRIA_2/',
+          torrent: '#',
+          vkplay: '#',
+          epic: 'https://store.epicgames.com/en-US/p/industria-2'
+        }
+      },
+      {
+        id: 'blight',
+        title: 'Blight: Survival',
+        genre: 'Co-op Survival Horror',
+        statusText: '🕒 Скоро (добавить в список желаемого)',
+        shortDesc: 'Кооперативный экшен-хоррор в средневековом мире, охваченном чумой. Сражайтесь с монстрами и ищите лекарство.',
+        fullDesc: 'Blight: Survival — кооперативная игра на выживание. Вместе с друзьями исследуйте проклятые земли, сражайтесь с ордами монстров, собирайте ресурсы и улучшайте оружие. Поддерживает до 4 игроков.',
+        poster: 'https://placehold.co/600x338/1e293b/ffb347?text=Blight+Poster',
+        trailer: 'https://www.youtube.com/embed/voOCzFCHRI4?autoplay=1&mute=1&loop=1&playlist=voOCzFCHRI4&controls=0&modestbranding=1&showinfo=0&rel=0',
+        screenshots: [
+          'https://placehold.co/300x169/1e293b/ffb347?text=Blight+scr1',
+          'https://placehold.co/300x169/1e293b/ffb347?text=Blight+scr2'
+        ],
+        specs: { release: 'Ожидается после 2026', developer: 'Haenir Studio', publisher: 'Unknown', engine: 'Unreal Engine 4', platform: 'PC (Steam)' },
+        links: {
+          steam: 'https://store.steampowered.com/app/1963610/Blight_Survival/',
+          torrent: '#',
+          vkplay: '#',
+          epic: '#'
+        }
+      },
+      {
+        id: 'styx',
+        title: 'Styx: Blades of Greed',
+        genre: 'Stealth Action',
+        statusText: '✅ Вышла (19 февраля 2026)',
+        shortDesc: 'Продолжение приключений гоблина-вора Стикса. Стелс-экшен с огромными локациями и десятками способностей.',
+        fullDesc: 'Styx: Blades of Greed — возвращение знаменитого гоблина-вора. Планируйте ограбления, испо
