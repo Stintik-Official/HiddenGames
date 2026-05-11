@@ -47,7 +47,7 @@
       font-size: 0.9rem;
     }
 
-    /* Сетка карточек (как на byrut – крупные, с отступами) */
+    /* Сетка карточек (крупные, с отступами) */
     .games-grid {
       max-width: 1400px;
       margin: 0 auto;
@@ -149,11 +149,11 @@
       text-decoration: none;
       padding: 6px 12px;
       border-radius: 40px;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       transition: all 0.2s;
       background: #2a2f39;
       color: #fff;
@@ -164,13 +164,13 @@
     .store-btn i {
       font-size: 0.8rem;
     }
-    .store-btn.steam { background: #1b6b50; }
-    .store-btn.steam:hover { background: #1f8a68; transform: scale(1.02); }
-    .store-btn.torrent { background: #2a2f39; border: 1px solid #ffaa33; color: #ffaa33; }
-    .store-btn.torrent:hover { background: #ffaa33; color: #000; transform: scale(1.02); }
-    .store-btn.vkplay { background: #0077ff; }
+    .store-btn.steam { background: #1b2838; }      /* тёмно-синий */
+    .store-btn.steam:hover { background: #2a475e; transform: scale(1.02); }
+    .store-btn.torrent { background: #2e7d64; }    /* зелёный */
+    .store-btn.torrent:hover { background: #3da37b; transform: scale(1.02); }
+    .store-btn.vkplay { background: #0077ff; }     /* голубой */
     .store-btn.vkplay:hover { background: #0066cc; transform: scale(1.02); }
-    .store-btn.epic { background: #2a2f39; border: 1px solid #fff; }
+    .store-btn.epic { background: #2a2a2a; border: 1px solid #fff; }  /* серый */
     .store-btn.epic:hover { background: #fff; color: #000; transform: scale(1.02); }
 
     /* Кнопка описания – на всю ширину, заметная */
@@ -335,7 +335,7 @@
 
 <script>
   // --------------------------------------------------------------
-  //  ДАННЫЕ ИГР (5 штук, порядок: Road to Vostok, NO LAW, INDUSTRIA 2, Blight, Styx)
+  //  ДАННЫЕ ИГР С ПРОВЕРЕННЫМИ МАГАЗИНАМИ
   // --------------------------------------------------------------
   const games = [
     {
@@ -364,7 +364,7 @@
       id: "nolaw",
       title: "NO LAW",
       genre: "Cyberpunk FPS",
-      statusText: "🕒 В разработке (2026)",
+      statusText: "🕒 Скоро (добавить в список желаемого)",
       shortDesc: "Кибернуарный боевик от создателей The Ascent. Город без правил, нелинейный сюжет, зрелищные перестрелки.",
       fullDesc: "NO LAW — кибернуарный экшен от первого лица от создателей The Ascent. Действие в городе Порт Дезайр, погрязшем в беззаконии. Открытый мир, глубокий сюжет, убийство любого NPC влияет на историю.",
       poster: "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_poster.jpg",
@@ -401,14 +401,14 @@
         steam: "https://store.steampowered.com/app/2154070/INDUSTRIA_2/",
         torrent: "#",
         vkplay: "#",
-        epic: "#"
+        epic: "https://store.epicgames.com/en-US/p/industria-2"
       }
     },
     {
       id: "blight",
       title: "Blight: Survival",
       genre: "Co-op Survival Horror",
-      statusText: "🕒 В разработке (после 2026)",
+      statusText: "🕒 Скоро (добавить в список желаемого)",
       shortDesc: "Кооперативный экшен-хоррор в средневековом мире, охваченном чумой. Сражайтесь с монстрами и ищите лекарство.",
       fullDesc: "Blight: Survival — кооперативная игра на выживание. Вместе с друзьями исследуйте проклятые земли, сражайтесь с ордами монстров, собирайте ресурсы и улучшайте оружие. Поддерживает до 4 игроков.",
       poster: "https://placehold.co/600x338/1e293b/ffb347?text=Blight+Poster",
@@ -440,10 +440,10 @@
       ],
       specs: { release: "19 февраля 2026", developer: "Cyanide Studio", publisher: "Nacon", engine: "Unreal Engine 4", platform: "PC, PS5, Xbox" },
       links: {
-        steam: "https://store.steampowered.com/app/1963610/Styx_Blades_of_Greed/",
+        steam: "https://store.steampowered.com/app/3290690/Styx_Blades_of_Greed/",
         torrent: "#",
         vkplay: "#",
-        epic: "#"
+        epic: "https://store.epicgames.com/en-US/p/styx-blades-of-greed"
       }
     }
   ];
@@ -525,4 +525,4 @@
   renderCards();
 </script>
 </body>
-</html>
+</html>    
