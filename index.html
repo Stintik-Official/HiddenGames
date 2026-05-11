@@ -14,11 +14,11 @@
     }
 
     body {
-      background: #0a0c10;
+      background: #0b0e12;
       font-family: 'Inter', sans-serif;
       color: #eef2ff;
       line-height: 1.4;
-      animation: fadeIn 0.5s ease;
+      animation: fadeIn 0.4s ease;
     }
 
     @keyframes fadeIn {
@@ -26,16 +26,16 @@
       to { opacity: 1; }
     }
 
-    /* Шапка */
+    /* Шапка (как на giftovik – строго) */
     .site-header {
       text-align: center;
       padding: 48px 24px 32px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
     .site-header h1 {
-      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-size: clamp(2rem, 6vw, 3.8rem);
       font-weight: 800;
-      background: linear-gradient(135deg, #fff, #ffb347);
+      background: linear-gradient(135deg, #ffffff, #ffb347);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
@@ -47,7 +47,7 @@
       font-size: 0.9rem;
     }
 
-    /* Сетка карточек */
+    /* Сетка карточек (как на byrut – крупные, с отступами) */
     .games-grid {
       max-width: 1400px;
       margin: 0 auto;
@@ -57,14 +57,14 @@
       gap: 32px;
     }
 
-    /* Карточка */
+    /* Карточка – тень, скругление, переход */
     .game-card {
-      background: #13171d;
+      background: #14181f;
       border-radius: 24px;
       overflow: hidden;
       transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s ease;
       border: 1px solid #222a34;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     }
     .game-card:hover {
       transform: translateY(-8px);
@@ -72,7 +72,7 @@
       border-color: #ffb347;
     }
 
-    /* Медиа-блок (постер + видео) */
+    /* Медиаблок + видео при наведении */
     .media-block {
       position: relative;
       background: #000;
@@ -109,7 +109,7 @@
       padding: 20px;
     }
     .game-title {
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       font-weight: 700;
       display: flex;
       justify-content: space-between;
@@ -130,7 +130,7 @@
     .short-desc {
       color: #acb6c8;
       font-size: 0.85rem;
-      margin: 12px 0 18px;
+      margin: 10px 0 18px;
       line-height: 1.5;
       display: -webkit-box;
       -webkit-line-clamp: 3;
@@ -138,7 +138,7 @@
       overflow: hidden;
     }
 
-    /* Блок кнопок магазинов */
+    /* Кнопки магазинов – цветные, с иконками */
     .store-buttons {
       display: flex;
       flex-wrap: wrap;
@@ -155,7 +155,7 @@
       align-items: center;
       gap: 6px;
       transition: all 0.2s;
-      background: #2a2a2a;
+      background: #2a2f39;
       color: #fff;
       border: none;
       cursor: pointer;
@@ -164,46 +164,24 @@
     .store-btn i {
       font-size: 0.8rem;
     }
-    .store-btn.steam {
-      background: #1b6b50;
-    }
-    .store-btn.steam:hover {
-      background: #1f8a68;
-      transform: scale(1.02);
-    }
-    .store-btn.torrent {
-      background: #2a2a2a;
-      border: 1px solid #ffaa33;
-      color: #ffaa33;
-    }
-    .store-btn.torrent:hover {
-      background: #ffaa33;
-      color: #000;
-      transform: scale(1.02);
-    }
-    .store-btn.vkplay {
-      background: #0077ff;
-    }
-    .store-btn.vkplay:hover {
-      background: #0066cc;
-      transform: scale(1.02);
-    }
-    .store-btn.epic {
-      background: #2a2a2a;
-      border: 1px solid #fff;
-    }
-    .store-btn.epic:hover {
-      background: #fff;
-      color: #000;
-      transform: scale(1.02);
-    }
+    .store-btn.steam { background: #1b6b50; }
+    .store-btn.steam:hover { background: #1f8a68; transform: scale(1.02); }
+    .store-btn.torrent { background: #2a2f39; border: 1px solid #ffaa33; color: #ffaa33; }
+    .store-btn.torrent:hover { background: #ffaa33; color: #000; transform: scale(1.02); }
+    .store-btn.vkplay { background: #0077ff; }
+    .store-btn.vkplay:hover { background: #0066cc; transform: scale(1.02); }
+    .store-btn.epic { background: #2a2f39; border: 1px solid #fff; }
+    .store-btn.epic:hover { background: #fff; color: #000; transform: scale(1.02); }
+
+    /* Кнопка описания – на всю ширину, заметная */
     .desc-btn {
       width: 100%;
       justify-content: center;
-      background: #2a2a2a;
+      background: #2a2f39;
       border: 1px solid #3a4452;
-      margin-top: 4px;
-      padding: 8px;
+      margin-top: 8px;
+      padding: 10px;
+      font-size: 0.8rem;
     }
     .desc-btn:hover {
       background: #3a4452;
@@ -227,7 +205,7 @@
       padding: 24px;
     }
     .modal-content {
-      background: #13171d;
+      background: #14181f;
       border: 1px solid #2a313c;
       border-radius: 28px;
       max-width: 1000px;
@@ -296,7 +274,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      background: #0f1218;
+      background: #0b0e12;
       padding: 16px;
       border-radius: 20px;
       margin: 16px 0;
@@ -327,6 +305,9 @@
       }
       .specs {
         grid-template-columns: 1fr;
+      }
+      .site-header {
+        padding: 32px 16px 24px;
       }
     }
   </style>
@@ -467,14 +448,13 @@
     }
   ];
 
-  // Генерация карточек
+  // Рендер сетки
   const grid = document.getElementById('gamesGrid');
   function renderCards() {
     grid.innerHTML = '';
     games.forEach(game => {
       const card = document.createElement('div');
       card.className = 'game-card';
-      // Формируем блок кнопок магазинов
       const storeBtns = `
         <div class="store-buttons">
           <a href="${game.links.steam}" target="_blank" class="store-btn steam"><i class="fab fa-steam"></i> Steam</a>
@@ -498,7 +478,7 @@
       `;
       grid.appendChild(card);
     });
-    // Обработчики кнопок описания
+    // обработчики описания
     document.querySelectorAll('.desc-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const id = btn.getAttribute('data-id');
@@ -508,7 +488,7 @@
     });
   }
 
-  // Модальное окно
+  // Модалка
   const modal = document.getElementById('modal');
   const modalBody = document.getElementById('modalBody');
   function openModal(game) {
@@ -540,9 +520,7 @@
     document.body.style.overflow = '';
   }
   document.querySelector('.modal-close').addEventListener('click', closeModal);
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
   renderCards();
 </script>
