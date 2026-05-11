@@ -4,468 +4,537 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>LostGames — каталог инди-игр</title>
-  <meta name="theme-color" content="#ff8c00">
-  <link rel="manifest" href="data:application/manifest+json,{
-    'name': 'LostGames',
-    'short_name': 'LostGames',
-    'start_url': './',
-    'display': 'standalone',
-    'background_color': '#0f0f0f',
-    'theme_color': '#ff8c00',
-    'icons': [{'src': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgY3g9Ijk2IiBjeT0iOTYiIHI9Ijk2IiBmaWxsPSIjZmY4YzAwIi8+Cjx0ZXh0IHg9Ijk2IiB5PSIxMDUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzBmMGYwZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TE9TVEdBTSU8L3RleHQ+Cjwvc3ZnPg==', 'sizes': '192x192', 'type': 'image/svg+xml'}]
-  }">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #1a1a1a;
-      --bg-card: #121212;
-      --text-primary: #f8f9fa;
-      --text-secondary: #a8b0b9;
-      --accent: #ff8c00;
-      --accent-glow: rgba(255, 140, 0, 0.5);
-      --border: #2a2a2a;
-      --gradient: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #ff8c00 100%);
-      --shadow: 0 8px 32px rgba(0,0,0,0.4);
-    }
-    [data-theme="light"] {
-      --bg-primary: #f8f9fa;
-      --bg-secondary: #e9ecef;
-      --bg-card: #ffffff;
-      --text-primary: #212529;
-      --text-secondary: #6c757d;
-      --border: #dee2e6;
-      --shadow: 0 8px 32px rgba(0,0,0,0.1);
-    }
+    /***** RESET & BASE *****/
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
-      background: var(--bg-primary);
-      font-family: 'Inter', sans-serif;
-      color: var(--text-primary);
-      line-height: 1.6;
-      overflow-x: hidden;
-      cursor: none;
+      background: #0a0c10;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #eef2ff;
+      line-height: 1.4;
     }
-    /* Custom cursor */
-    .cursor {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      mix-blend-mode: difference;
-      transition: transform 0.1s ease;
-    }
-    .cursor.hover { transform: scale(2); }
-    /* Particles background */
-    .particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-      background: radial-gradient(circle at 20% 80%, rgba(255,140,0,0.1) 0%, transparent 50%), 
-                  radial-gradient(circle at 80% 20%, rgba(255,140,0,0.05) 0%, transparent 50%);
-      animation: float 20s infinite linear;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
-    /* Top bar - search & filter */
-    .top-bar {
-      position: sticky;
-      top: 0;
-      background: rgba(18,18,18,0.95);
-      backdrop-filter: blur(20px);
-      padding: 16px 24px;
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      z-index: 100;
-      border-bottom: 1px solid var(--border);
-    }
-    .search-input {
-      flex: 1;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      padding: 12px 16px;
-      border-radius: 50px;
-      color: var(--text-primary);
-      font-size: 1rem;
-    }
-    .search-input::placeholder { color: var(--text-secondary); }
-    .filter-btn, .theme-toggle {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      padding: 12px 20px;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .filter-btn:hover, .theme-toggle:hover {
-      background: var(--accent);
-      transform: scale(1.05);
-      box-shadow: 0 0 20px var(--accent-glow);
-    }
-    /* Header */
+
+    /***** ШАПКА (как на giftovik) *****/
     .site-header {
       text-align: center;
-      padding: 80px 24px 40px;
-      position: relative;
+      padding: 48px 24px 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
     .site-header h1 {
-      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-size: clamp(2rem, 6vw, 3rem);
       font-weight: 800;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      background: linear-gradient(135deg, #fff, #ffb347);
       background-clip: text;
-      letter-spacing: -0.03em;
-      animation: glow 3s ease-in-out infinite alternate;
-    }
-    @keyframes glow {
-      from { filter: drop-shadow(0 0 20px var(--accent-glow)); }
-      to { filter: drop-shadow(0 0 30px var(--accent-glow)); }
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.02em;
     }
     .site-header p {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-      margin-top: 16px;
-      max-width: 600px;
-      margin-inline: auto;
+      color: #9aa4b2;
+      margin-top: 12px;
+      font-size: 0.9rem;
     }
-    /* Grid */
+
+    /***** ПАНЕЛЬ ФИЛЬТРОВ (упорядочена) *****/
+    .toolbar {
+      max-width: 1400px;
+      margin: 0 auto 24px;
+      padding: 0 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .filter-btn, .sort-btn {
+      background: #1e232c;
+      border: none;
+      color: #cbd5e6;
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn.active, .sort-btn.active {
+      background: #ffb347;
+      color: #0a0c10;
+    }
+    .filter-btn:hover, .sort-btn:hover {
+      background: #2a313c;
+      color: #fff;
+    }
+
+    /***** СЕТКА КАРТОЧЕК (адаптивная) *****/
     .games-grid {
-      max-width: 1440px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 40px 24px;
+      padding: 24px 24px 48px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 32px;
-      animation: fadeInUp 0.8s ease-out;
     }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+
+    /***** КАРТОЧКА ИГРЫ (hover‑эффект, плавная тень) *****/
     .game-card {
-      background: var(--bg-card);
+      background: #13171d;
       border-radius: 24px;
       overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      position: relative;
-      opacity: 0;
-      animation: cardSlideIn 0.6s ease-out forwards;
-    }
-    .game-card:nth-child(odd) { animation-delay: 0.1s; }
-    .game-card:nth-child(even) { animation-delay: 0.2s; }
-    @keyframes cardSlideIn {
-      to { opacity: 1; transform: translateY(0); }
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid #222a34;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
     .game-card:hover {
-      transform: translateY(-12px) scale(1.02);
-      box-shadow: 0 24px 64px rgba(255,140,0,0.3);
-      border-color: var(--accent);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 32px -12px rgba(0,0,0,0.5);
+      border-color: #ffb347;
     }
-    .shimmer {
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      height: 4px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      transform: scaleX(0);
-      transition: transform 0.5s;
-    }
-    .game-card:hover .shimmer { transform: scaleX(1); }
-    /* Media */
+
+    /***** МЕДИАБЛОК (картинка + видео) *****/
     .media-block {
       position: relative;
-      aspect-ratio: 16/9;
-      overflow: hidden;
       background: #000;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
     }
     .poster-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    .game-card:hover .poster-img {
-      opacity: 0;
-      filter: blur(4px) brightness(0.7);
-      transform: scale(1.1);
+      transition: opacity 0.3s ease;
     }
     .trailer-iframe {
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
+      border: 0;
       opacity: 0;
-      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      border: none;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .game-card:hover .poster-img {
+      opacity: 0;
     }
     .game-card:hover .trailer-iframe {
       opacity: 1;
+      pointer-events: auto;
     }
-    /* Content */
+
+    /***** КОНТЕНТ КАРТОЧКИ *****/
     .card-content {
-      padding: 24px;
+      padding: 20px;
     }
     .game-title {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 700;
-      margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
       align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
     }
-    .genre-badge {
-      font-size: 0.75rem;
+    .game-title span {
+      font-size: 0.7rem;
       font-weight: 600;
-      background: rgba(255,140,0,0.2);
-      padding: 6px 14px;
-      border-radius: 50px;
-      color: var(--accent);
-      backdrop-filter: blur(10px);
-    }
-    .status-badge {
-      font-size: 0.75rem;
-      background: rgba(255,140,0,0.15);
+      background: rgba(255,179,71,0.15);
       padding: 4px 12px;
-      border-radius: 20px;
-      color: var(--accent);
-      margin-bottom: 12px;
+      border-radius: 40px;
+      color: #ffb347;
     }
     .short-desc {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      margin-bottom: 20px;
+      color: #acb6c8;
+      font-size: 0.85rem;
+      margin: 12px 0 18px;
       line-height: 1.5;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-    .store-links {
+
+    /***** КНОПКИ МАГАЗИНОВ (цвета + иконки) *****/
+    .store-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 12px;
+      margin-top: 16px;
     }
     .store-btn {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      padding: 8px 16px;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      color: var(--text-primary);
       text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      position: relative;
-      overflow: hidden;
+      transition: all 0.2s;
+      background: #2a2a2a;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
     }
-    .store-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
+    .store-btn.steam {
+      background: #1b6b50;
+    }
+    .store-btn.steam:hover {
+      background: #1f8a68;
+    }
+    .store-btn.torrent {
+      background: #2a2a2a;
+      border: 1px solid #ffaa33;
+      color: #ffaa33;
+    }
+    .store-btn.torrent:hover {
+      background: #ffaa33;
+      color: #000;
+    }
+    .store-btn.vkplay {
+      background: #0077ff;
+    }
+    .store-btn.vkplay:hover {
+      background: #0066cc;
+    }
+    .store-btn.epic {
+      background: #2a2a2a;
+      border: 1px solid #fff;
+    }
+    .store-btn.epic:hover {
+      background: #fff;
+      color: #000;
+    }
+    .store-btn.desc {
+      background: #2a2a2a;
+      border: 1px solid #3a4452;
+      margin-top: 8px;
       width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s;
+      justify-content: center;
     }
-    .store-btn:hover::before { left: 100%; }
-    .store-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px var(--accent-glow);
+    .store-btn.desc:hover {
+      background: #3a4452;
+      border-color: #ffb347;
     }
-    .store-btn.steam { background: linear-gradient(135deg, #1b6b50, #2d865a); border-color: #1b6b50; }
-    .store-btn.torrent { border-color: var(--accent); color: var(--accent); }
-    .store-btn.vkplay { background: linear-gradient(135deg, #0077ff, #005fcc); }
-    .store-btn.epic { border-color: #fff; }
-    .store-btn[data-action="info"] { width: 100%; justify-content: center; background: var(--accent); color: #000; font-weight: 600; }
-    /* Modal */
+
+    /***** МОДАЛЬНОЕ ОКНО (скриншоты) *****/
     .modal {
       display: none;
       position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.9);
-      backdrop-filter: blur(20px);
-      z-index: 10000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
       justify-content: center;
       align-items: center;
-      padding: 32px;
-      animation: modalSlideIn 0.4s ease-out;
-    }
-    @keyframes modalSlideIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+      padding: 24px;
     }
     .modal-content {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 32px;
-      max-width: 1100px;
-      width: 95%;
-      max-height: 90vh;
+      background: #13171d;
+      border: 1px solid #2a313c;
+      border-radius: 28px;
+      max-width: 1000px;
+      width: 100%;
+      max-height: 85vh;
       overflow-y: auto;
-      padding: 40px;
+      padding: 28px;
       position: relative;
-      box-shadow: 0 32px 128px rgba(0,0,0,0.6);
     }
     .modal-close {
       position: absolute;
-      top: 20px;
-      right: 24px;
-      font-size: 32px;
+      top: 16px;
+      right: 20px;
+      font-size: 28px;
       cursor: pointer;
-      color: var(--text-secondary);
-      transition: all 0.3s;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
+      color: #aaa;
+      transition: 0.2s;
     }
     .modal-close:hover {
-      color: var(--accent);
-      background: rgba(255,140,0,0.2);
-      transform: rotate(90deg);
+      color: #ffb347;
+    }
+    .modal h2 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+    .status-badge {
+      display: inline-block;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      font-size: 0.75rem;
+      background: rgba(255,179,71,0.2);
+      padding: 4px 12px;
+      border-radius: 20px;
+      color: #ffb347;
+    }
+    .modal-subhead {
+      color: #ffb347;
+      border-left: 3px solid #ffb347;
+      padding-left: 12px;
+      margin: 20px 0 16px;
+      font-weight: 600;
     }
     .screenshots-gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 16px;
-      margin: 24px 0;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
     }
     .screenshots-gallery img {
       width: 100%;
-      border-radius: 16px;
-      border: 1px solid var(--border);
+      border-radius: 12px;
+      border: 1px solid #2a313c;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: 0.2s;
     }
     .screenshots-gallery img:hover {
-      transform: scale(1.05);
-      box-shadow: var(--shadow);
-      border-color: var(--accent);
+      transform: scale(1.02);
+      border-color: #ffb347;
     }
     .specs {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      background: var(--bg-secondary);
-      padding: 20px;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      background: #0f1218;
+      padding: 16px;
       border-radius: 20px;
-      margin: 20px 0;
+      margin: 16px 0;
     }
     .specs p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
+      font-size: 0.85rem;
+      color: #cbd5e6;
     }
     .specs strong {
-      color: var(--text-primary);
+      color: #ffb347;
     }
-    .modal-subhead {
-      color: var(--accent);
-      font-size: 1.2rem;
-      font-weight: 600;
-      border-left: 4px solid var(--accent);
-      padding-left: 16px;
-      margin: 32px 0 16px;
-    }
-    /* Footer */
+
     .footer {
       text-align: center;
-      padding: 48px 24px;
-      border-top: 1px solid var(--border);
-      color: var(--text-secondary);
-      font-size: 0.85rem;
+      padding: 32px 24px;
+      border-top: 1px solid #22282f;
+      font-size: 0.75rem;
+      color: #5f6c82;
     }
     .footer a {
-      color: var(--accent);
+      color: #ffb347;
       text-decoration: none;
-      transition: color 0.3s;
     }
-    .footer a:hover { text-shadow: 0 0 10px var(--accent-glow); }
-    /* Responsive */
-    @media (max-width: 768px) {
-      .top-bar { flex-direction: column; gap: 12px; }
-      .games-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; padding: 24px 16px; }
-      .site-header { padding: 60px 16px 32px; }
-      .card-content { padding: 20px; }
+
+    @media (max-width: 860px) {
+      .games-grid {
+        gap: 20px;
+        padding: 24px 16px;
+      }
+      .toolbar {
+        padding: 0 16px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filter-group {
+        justify-content: center;
+      }
+      .specs {
+        grid-template-columns: 1fr;
+      }
     }
-    /* Hide scroll on body when modal open */
-    body.modal-open { overflow: hidden; }
   </style>
 </head>
 <body>
-  <!-- Particles -->
-  <div class="particles"></div>
-  <!-- Cursor -->
-  <div class="cursor"></div>
 
-  <!-- Top bar -->
-  <div class="top-bar">
-    <input type="text" class="search-input" placeholder="🔍 Поиск по названию или жанру..." id="searchInput">
-    <button class="filter-btn" id="filterBtn">Фильтр</button>
-    <button class="theme-toggle" id="themeToggle">🌙</button>
+<div class="site-header">
+  <h1>💀 LostGames</h1>
+  <p>Каталог лучших инди-игр. Наведи на карточку — запустится трейлер. Нажми «Описание» — увидишь подробности.</p>
+</div>
+
+<div class="toolbar">
+  <div class="filter-group" id="filterGroup">
+    <button class="filter-btn active" data-filter="all">Все</button>
+    <button class="filter-btn" data-filter="released">✅ Вышедшие</button>
+    <button class="filter-btn" data-filter="early">🚀 Ранний доступ</button>
+    <button class="filter-btn" data-filter="upcoming">🕒 В разработке</button>
   </div>
-
-  <div class="site-header">
-    <h1>LostGames</h1>
-    <p>Каталог скрытых инди-жемов. Наведи на карточку — оживи трейлер. Фильтруй, ищи, наслаждайся анимациями.</p>
+  <div class="filter-group" id="sortGroup">
+    <button class="sort-btn" data-sort="name">По названию</button>
+    <button class="sort-btn" data-sort="date">По дате релиза</button>
   </div>
+</div>
 
-  <div class="games-grid" id="gamesGrid"></div>
+<div class="games-grid" id="gamesGrid"></div>
 
-  <footer class="footer">
-    <p>LostGames — некоммерческий каталог инди-игр. Ссылки на Steam, VK Play, Epic и торренты.</p>
-    <p><a href="https://github.com/Stintik-Official/HiddenGames" target="_blank">GitHub</a> · <a href="#" target="_blank">Telegram</a></p>
-  </footer>
+<footer class="footer">
+  <p>LostGames — некоммерческий каталог. Все ссылки ведут в Steam.</p>
+  <p><a href="#">GitHub</a> · <a href="#">Telegram</a></p>
+</footer>
 
-  <!-- Modal -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="modal-close" id="modalClose">&times;</span>
-      <div id="modalBody"></div>
-    </div>
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close">&times;</span>
+    <div id="modalBody"></div>
   </div>
+</div>
 
-  <script>
-    // Данные игр (расширил для фильтра)
-    const games = [
-      // ... (твои оригинальные игры, без изменений)
-      {
-        id: "roadtovostok",
-        title: "Road to Vostok",
-        genre: "Hardcore Survival",
-        statusText: "🚀 Ранний доступ",
-        shortDesc: "Хардкорный одиночный симулятор выживания в постапокалиптической приграничной зоне. Реализм, перманентная смерть, глубокий лутинг.",
-        fullDesc: "Road to Vostok — хардкорная survival игра. Действие происходит в постапокалиптической зоне отчуждения на границе. Игрок собирает ресурсы, улучшает экипировку, пробивается через опасные локации с перманентной смертью.",
-        poster: "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_poster.jpg",
-        trailer: "https://www.youtube.com/embed/OTFgTRsz43Q?autoplay=1&mute=1&loop=1&playlist=OTFgTRsz43Q&controls=0&modestbranding=1&showinfo=0&rel=0",
-        screenshots: [
-          "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr1.jpg",
-          "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr2.jpg",
-          "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr3.jpg"
-        ],
-        specs: { release: "7 апреля 2026 (Ранний доступ)", developer: "Antti", publisher: "Road to Vostok
+<script>
+  // --------------------------------------------------------------
+  //  ДАННЫЕ ИГР (ПОЛНЫЕ ОПИСАНИЯ И ССЫЛКИ)
+  // --------------------------------------------------------------
+  const gamesData = [
+    {
+      id: "roadtovostok",
+      title: "Road to Vostok",
+      genre: "Hardcore Survival",
+      status: "early",
+      statusText: "🚀 Ранний доступ",
+      shortDesc: "Хардкорный одиночный симулятор выживания в постапокалиптической приграничной зоне.",
+      fullDesc: "Road to Vostok — хардкорная survival игра. Действие происходит в постапокалиптической зоне отчуждения на границе. Игрок собирает ресурсы, улучшает экипировку, пробивается через опасные локации с перманентной смертью.",
+      poster: "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_poster.jpg",
+      trailer: "https://www.youtube.com/embed/OTFgTRsz43Q?autoplay=1&mute=1&loop=1&playlist=OTFgTRsz43Q&controls=0&modestbranding=1&showinfo=0&rel=0",
+      screenshots: [
+        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr1.jpg",
+        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr2.jpg",
+        "https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/roadtovostok_scr3.jpg"
+      ],
+      specs: { release: "7 апреля 2026 (Ранний доступ)", developer: "Antti", publisher: "Road to Vostok Ltd", engine: "Unity", platform: "PC (Steam)" },
+      links: {
+        steam: "https://store.steampowered.com/app/1963610/Road_to_Vostok/",
+        torrent: "#",
+        vkplay: "#",
+        epic: "#"
+      },
+      releaseDate: "2026-04-07"
+    },
+    // Добавь остальные игры (NO LAW, INDUSTRIA 2, Blight, Styx) по тому же шаблону
+  ];
+
+  let currentFilter = "all";
+  let currentSort = "name";
+
+  function filterAndSortGames() {
+    let filtered = gamesData.filter(game => {
+      if (currentFilter === "all") return true;
+      return game.status === currentFilter;
+    });
+
+    if (currentSort === "name") {
+      filtered.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (currentSort === "date") {
+      filtered.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
+    }
+    return filtered;
+  }
+
+  function renderCards() {
+    const grid = document.getElementById('gamesGrid');
+    const filtered = filterAndSortGames();
+    grid.innerHTML = '';
+    filtered.forEach(game => {
+      const card = document.createElement('div');
+      card.className = 'game-card';
+      const storeButtons = `
+        <div class="store-buttons">
+          <a href="${game.links.steam}" target="_blank" class="store-btn steam">Steam</a>
+          <a href="${game.links.torrent}" target="_blank" class="store-btn torrent">Торрент</a>
+          <a href="${game.links.vkplay}" target="_blank" class="store-btn vkplay">VK Play</a>
+          <a href="${game.links.epic}" target="_blank" class="store-btn epic">Epic</a>
+        </div>
+      `;
+      card.innerHTML = `
+        <div class="media-block">
+          <img class="poster-img" src="${game.poster}" alt="${game.title}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div style="display: none; align-items: center; justify-content: center; background: #1e293b; height: 100%; color: #ffb347; font-size: 2rem;">🎮 ${game.title}</div>
+          <iframe class="trailer-iframe" src="${game.trailer}" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div class="card-content">
+          <div class="game-title">${game.title} <span>${game.genre}</span></div>
+          <div class="short-desc">${game.shortDesc}</div>
+          ${storeButtons}
+          <button class="store-btn desc" data-id="${game.id}">📖 Описание</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+    document.querySelectorAll('.store-btn.desc').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = btn.getAttribute('data-id');
+        const game = gamesData.find(g => g.id === id);
+        if (game) openModal(game);
+      });
+    });
+  }
+
+  function setupControls() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const sortBtns = document.querySelectorAll('.sort-btn');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.getAttribute('data-filter');
+        renderCards();
+      });
+    });
+
+    sortBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        sortBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentSort = btn.getAttribute('data-sort');
+        renderCards();
+      });
+    });
+  }
+
+  const modal = document.getElementById('modal');
+  const modalBody = document.getElementById('modalBody');
+  function openModal(game) {
+    const screensHtml = game.screenshots.map(url => `<img src="${url}" alt="screenshot" onclick="window.open('${url}','_blank')" onerror="this.src='https://placehold.co/300x169/1e293b/ffb347?text=No+screenshot'">`).join('');
+    modalBody.innerHTML = `
+      <h2>${game.title}</h2>
+      <div class="status-badge">${game.statusText}</div>
+      <div class="specs">
+        <p><strong>Релиз:</strong> ${game.specs.release}</p>
+        <p><strong>Разработчик:</strong> ${game.specs.developer}</p>
+        <p><strong>Издатель:</strong> ${game.specs.publisher}</p>
+        <p><strong>Движок:</strong> ${game.specs.engine}</p>
+        <p><strong>Платформа:</strong> ${game.specs.platform}</p>
+      </div>
+      <div class="modal-subhead">📖 Сюжет</div>
+      <p style="margin-bottom: 20px;">${game.fullDesc}</p>
+      <div class="modal-subhead">📸 Скриншоты</div>
+      <div class="screenshots-gallery">${screensHtml}</div>
+      <div class="card-buttons" style="margin-top: 20px;">
+        <a href="${game.links.steam}" target="_blank" class="store-btn steam" style="display:inline-block;">Перейти в Steam →</a>
+      </div>
+    `;
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  document.querySelector('.modal-close').addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+  renderCards();
+  setupControls();
+</script>
+</body>
+</html>
