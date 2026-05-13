@@ -168,7 +168,7 @@
       color:#fff;
       text-shadow:0 2px 16px rgba(0,0,0,.55);
     }
-    .trailer-video, .trailer-iframe{
+    .trailer-iframe{
       position:absolute;
       inset:0;
       width:100%;
@@ -177,15 +177,10 @@
       opacity:0;
       pointer-events:none;
       transition:opacity .25s ease;
-      object-fit:cover;
     }
-    .game-card:hover .trailer-video,
     .game-card:hover .trailer-iframe{
       opacity:1;
       pointer-events:auto;
-    }
-    .trailer-video{
-      pointer-events:none;
     }
     .card-content{padding:18px}
     .game-title{
@@ -437,7 +432,7 @@
         shortDesc: 'Кибернуарный боевик от создателей The Ascent. Город без правил, нелинейный сюжет, зрелищные перестрелки.',
         fullDesc: 'NO LAW — кибернуарный экшен от первого лица от создателей The Ascent. Действие в городе Порт Дезайр, погрязшем в беззаконии. Открытый мир, глубокий сюжет, убийство любого NPC влияет на историю.',
         poster: 'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_poster.jpg',
-        trailer: 'https://github.com/Stintik-Official/LostGames/raw/main/videos/NoLaw_Trailer.mp4',
+        trailer: 'https://www.youtube.com/embed/uD6kFXZlX00?autoplay=1&mute=1&loop=1&playlist=uD6kFXZlX00&controls=0&modestbranding=1&showinfo=0&rel=0',
         screenshots: [
           'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr1.jpg',
           'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr2.jpg',
@@ -524,16 +519,6 @@
       games.forEach(game => {
         const card = document.createElement('div');
         card.className = 'game-card';
-        
-        // Определяем тип трейлера: если ссылка содержит 'raw.githubusercontent' – это локальное видео, иначе YouTube
-        const isRawVideo = game.trailer && game.trailer.includes('raw.githubusercontent');
-        let trailerHtml = '';
-        if (isRawVideo) {
-          trailerHtml = `<video class="trailer-video" src="${game.trailer}" muted loop playsinline preload="metadata"></video>`;
-        } else {
-          trailerHtml = `<iframe class="trailer-iframe" src="${game.trailer}" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-        }
-
         card.innerHTML = `
           <div class="media-block">
             <img class="poster-img" src="${game.poster}" alt="${game.title}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -544,7 +529,7 @@
                 <div class="mini">Наведите, чтобы увидеть трейлер</div>
               </div>
             </div>
-            ${trailerHtml}
+            <iframe class="trailer-iframe" src="${game.trailer}" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
           <div class="card-content">
             <div class="game-title">
@@ -554,5 +539,16 @@
             <div class="short-desc">${game.shortDesc}</div>
             <div class="store-buttons">
               <a href="${game.links.steam}" target="_blank" class="store-btn steam"><i class="fab fa-steam"></i> Steam</a>
-              <a href="${game.links.torrent}" target="_blank" class="store-btn torrent"><i class="fas fa-dow
+              <a href="${game.links.torrent}" target="_blank" class="store-btn torrent"><i class="fas fa-download"></i> Торрент</a>
+              <a href="${game.links.vkplay}" target="_blank" class="store-btn vkplay"><i class="fab fa-vk"></i> VK Play</a>
+              <a href="${game.links.epic}" target="_blank" class="store-btn epic"><i class="fab fa-epicgames"></i> Epic</a>
+            </div>
+            <button class="store-btn desc-btn" data-id="${game.id}"><i class="fas fa-info-circle"></i> Описание</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      document.querySelectorAll('.desc-btn').forEach(btn => {
+     
             
