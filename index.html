@@ -438,7 +438,6 @@
         fullDesc: 'NO LAW — кибернуарный экшен от первого лица от создателей The Ascent. Действие в городе Порт Дезайр, погрязшем в беззаконии. Открытый мир, глубокий сюжет, убийство любого NPC влияет на историю.',
         poster: 'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_poster.jpg',
         trailerVideo: 'https://github.com/Stintik-Official/LostGames/raw/main/videos/NoLaw_Trailer.mp4',
-        trailerFallback: 'https://www.youtube.com/embed/uD6kFXZlX00?autoplay=1&mute=1&loop=1&playlist=uD6kFXZlX00&controls=0&modestbranding=1&showinfo=0&rel=0',
         screenshots: [
           'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr1.jpg',
           'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr2.jpg',
@@ -526,19 +525,11 @@
         const card = document.createElement('div');
         card.className = 'game-card';
         
-        // Определяем, какой трейлер использовать
+        // Для NO LAW используем локальное видео, для остальных – YouTube iframe
         let trailerHtml = '';
         if (game.trailerVideo) {
-          // Локальное видео с fallback на YouTube, если не загрузится
-          trailerHtml = `
-            <video class="trailer-video" muted loop playsinline preload="metadata">
-              <source src="${game.trailerVideo}" type="video/mp4" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.style.display='block';">
-              Ваш браузер не поддерживает видео.
-            </video>
-            <iframe class="trailer-iframe" src="${game.trailerFallback}" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen style="display:none;"></iframe>
-          `;
+          trailerHtml = `<video class="trailer-video" src="${game.trailerVideo}" muted loop playsinline preload="metadata"></video>`;
         } else {
-          // Обычный YouTube iframe
           trailerHtml = `<iframe class="trailer-iframe" src="${game.trailer}" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
         }
 
@@ -552,4 +543,16 @@
                 <div class="mini">Наведите, чтобы увидеть трейлер</div>
               </div>
             </div>
+            ${trailerHtml}
+          </div>
+          <div class="card-content">
+            <div class="game-title">
+              <h3>${game.title}</h3>
+              <span>${game.genre}</span>
+            </div>
+            <div class="short-desc">${game.shortDesc}</div>
+            <div class="store-buttons">
+              <a href="${game.links.steam}" target="_blank" class="store-btn steam"><i class="fab fa-steam"></i> Steam</a>
+              <a href="${game.links.torrent}" target="_blank" class="store-btn torrent"><i class="fas fa-download"></i> Торрент</a>
+              <a href="${game.links.vkplay}" target="_blank" class="store-btn vkplay"><
             
