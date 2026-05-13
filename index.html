@@ -437,7 +437,7 @@
         shortDesc: 'Кибернуарный боевик от создателей The Ascent. Город без правил, нелинейный сюжет, зрелищные перестрелки.',
         fullDesc: 'NO LAW — кибернуарный экшен от первого лица от создателей The Ascent. Действие в городе Порт Дезайр, погрязшем в беззаконии. Открытый мир, глубокий сюжет, убийство любого NPC влияет на историю.',
         poster: 'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_poster.jpg',
-        trailerVideo: 'https://github.com/Stintik-Official/LostGames/raw/main/videos/NoLaw_Trailer.mp4',
+        trailer: 'https://github.com/Stintik-Official/LostGames/raw/main/videos/NoLaw_Trailer.mp4',
         screenshots: [
           'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr1.jpg',
           'https://raw.githubusercontent.com/Stintik-Official/HiddenGames/main/images/nolaw_scr2.jpg',
@@ -525,10 +525,11 @@
         const card = document.createElement('div');
         card.className = 'game-card';
         
-        // Для NO LAW используем локальное видео, для остальных – YouTube iframe
+        // Определяем тип трейлера: если ссылка содержит 'raw.githubusercontent' – это локальное видео, иначе YouTube
+        const isRawVideo = game.trailer && game.trailer.includes('raw.githubusercontent');
         let trailerHtml = '';
-        if (game.trailerVideo) {
-          trailerHtml = `<video class="trailer-video" src="${game.trailerVideo}" muted loop playsinline preload="metadata"></video>`;
+        if (isRawVideo) {
+          trailerHtml = `<video class="trailer-video" src="${game.trailer}" muted loop playsinline preload="metadata"></video>`;
         } else {
           trailerHtml = `<iframe class="trailer-iframe" src="${game.trailer}" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
         }
@@ -553,6 +554,5 @@
             <div class="short-desc">${game.shortDesc}</div>
             <div class="store-buttons">
               <a href="${game.links.steam}" target="_blank" class="store-btn steam"><i class="fab fa-steam"></i> Steam</a>
-              <a href="${game.links.torrent}" target="_blank" class="store-btn torrent"><i class="fas fa-download"></i> Торрент</a>
-              <a href="${game.links.vkplay}" target="_blank" class="store-btn vkplay"><
+              <a href="${game.links.torrent}" target="_blank" class="store-btn torrent"><i class="fas fa-dow
             
