@@ -358,63 +358,50 @@
 </div>
 
 <script>
-  // Точные имена из твоих папок (изображения, видео)
+  // Пути ведут на папки images/ и videos/ (английские названия)
   const games = [
     {
       id: 'roadtovostok',
       title: 'Road to Vostok',
       genre: 'Hardcore Survival',
       statusText: '🚀 Ранний доступ',
-      shortDesc: 'Хардкорный одиночный симулятор выживания в постапокалиптической приграничной зоне. Реализм, перманентная смерть.',
-      fullDesc: 'Road to Vostok — хардкорная survival игра. Действие в зоне отчуждения. Собирай ресурсы, улучшай экипировку, пробивайся к сектору «Восток».',
-      poster: 'изображения/roadtonostok_poster.jpg',
-      trailer: null, // видео отсутствует
+      shortDesc: 'Хардкорный одиночный симулятор выживания в постапокалиптической приграничной зоне.',
+      fullDesc: 'Road to Vostok — хардкорная survival игра. Действие в зоне отчуждения. Собирай ресурсы, улучшай экипировку.',
+      poster: 'images/roadtonostok_poster.jpg',
+      trailer: null,
       screenshots: [
-        'изображения/roadtonostok_scr1.jpg',
-        'изображения/roadtonostok_scr2.jpg',
-        'изображения/roadtonostok_scr3.jpg'
+        'images/roadtonostok_scr1.jpg',
+        'images/roadtonostok_scr2.jpg',
+        'images/roadtonostok_scr3.jpg'
       ],
       specs: { release: '7 апреля 2026 (Ранний доступ)', developer: 'Antti', publisher: 'Road to Vostok Ltd', engine: 'Unity', platform: 'PC (Steam)' },
-      links: {
-        steam: 'https://store.steampowered.com/app/1963610/Road_to_Vostok/',
-        torrent: '#', vkplay: '#', epic: '#'
-      }
+      links: { steam: 'https://store.steampowered.com/app/1963610/Road_to_Vostok/', torrent: '#', vkplay: '#', epic: '#' }
     },
     {
       id: 'nolaw',
       title: 'NO LAW',
       genre: 'Cyberpunk FPS',
       statusText: '🕒 Скоро',
-      shortDesc: 'Кибернуарный боевик от создателей The Ascent. Город без правил, нелинейный сюжет.',
-      fullDesc: 'NO LAW — кибернуарный экшен от первого лица. Действие в городе Порт Дезайр, погрязшем в беззаконии.',
-      poster: 'изображения/nolaw_poster.jpg',
-      trailer: 'видео/NoLaw_Trailer.mp4',
-      screenshots: [
-        'изображения/nolaw_scr1.jpg',
-        'изображения/nolaw_scr2.jpg',
-        'изображения/nolaw_scr3.jpg'
-      ],
+      shortDesc: 'Кибернуарный боевик от создателей The Ascent. Город без правил.',
+      fullDesc: 'NO LAW — кибернуарный экшен от первого лица. Действие в городе Порт Дезайр.',
+      poster: 'images/nolaw_poster.jpg',
+      trailer: 'videos/NoLaw_Trailer.mp4',
+      screenshots: ['images/nolaw_scr1.jpg', 'images/nolaw_scr2.jpg', 'images/nolaw_scr3.jpg'],
       specs: { release: '2026', developer: 'Neon Giant', publisher: 'KRAFTON', engine: 'Unreal Engine 4', platform: 'PC, PS5, Xbox' },
-      links: {
-        steam: 'https://store.steampowered.com/app/2674320/NO_LAW/',
-        torrent: '#', vkplay: '#', epic: '#'
-      }
+      links: { steam: 'https://store.steampowered.com/app/2674320/NO_LAW/', torrent: '#', vkplay: '#', epic: '#' }
     },
     {
       id: 'industria2',
       title: 'INDUSTRIA 2',
       genre: 'Narrative FPS',
       statusText: '✅ Вышла',
-      shortDesc: 'Нарративный шутер. Нора застряла в параллельном измерении. Мрачная атмосфера, Unreal Engine 5.',
-      fullDesc: 'INDUSTRIA 2 — сиквел инди-хита. Нора пытается вернуться домой из параллельного мира, поглощённого ИИ.',
-      poster: 'изображения/Industria2_poster.jpg',
-      trailer: 'видео/Industria2_trailer.mp4',
-      screenshots: [], // скриншоты отсутствуют, пока заглушка
+      shortDesc: 'Нарративный шутер. Нора застряла в параллельном измерении.',
+      fullDesc: 'INDUSTRIA 2 — сиквел инди-хита. Нора пытается вернуться домой.',
+      poster: 'images/Industria2_poster.jpg',
+      trailer: 'videos/Industria2_trailer.mp4',
+      screenshots: [],
       specs: { release: '30 апреля 2026', developer: 'Bleakmill', publisher: 'Headup', engine: 'Unreal Engine 5', platform: 'PC (Steam)' },
-      links: {
-        steam: 'https://store.steampowered.com/app/2154070/INDUSTRIA_2/',
-        torrent: '#', vkplay: '#', epic: '#'
-      }
+      links: { steam: 'https://store.steampowered.com/app/2154070/INDUSTRIA_2/', torrent: '#', vkplay: '#', epic: '#' }
     },
     {
       id: 'blight',
@@ -422,15 +409,12 @@
       genre: 'Co-op Survival Horror',
       statusText: '🕒 Скоро',
       shortDesc: 'Кооперативный экшен-хоррор в средневековом мире, охваченном чумой.',
-      fullDesc: 'Blight: Survival — кооперативная игра на выживание. Исследуйте проклятые земли, сражайтесь с монстрами.',
-      poster: 'изображения/BlightSirvival_poster.jpg', // есть опечатка в имени, но так в файле
-      trailer: null, // видео отсутствует
-      screenshots: [], // скриншотов нет
+      fullDesc: 'Blight: Survival — кооперативная игра на выживание.',
+      poster: 'images/BlightSirvival_poster.jpg',
+      trailer: null,
+      screenshots: [],
       specs: { release: 'Ожидается', developer: 'Haenir Studio', publisher: 'Unknown', engine: 'Unreal Engine 4', platform: 'PC (Steam)' },
-      links: {
-        steam: 'https://store.steampowered.com/app/1963610/Blight_Survival/',
-        torrent: '#', vkplay: '#', epic: '#'
-      }
+      links: { steam: 'https://store.steampowered.com/app/1963610/Blight_Survival/', torrent: '#', vkplay: '#', epic: '#' }
     },
     {
       id: 'styx',
@@ -439,14 +423,11 @@
       statusText: '✅ Вышла',
       shortDesc: 'Возвращение гоблина-вора. Стелс, засады, планирование.',
       fullDesc: 'Styx: Blades of Greed — новая глава в приключениях ловкого гоблина.',
-      poster: 'изображения/StyxBlades_poster.jpg',
-      trailer: 'видео/StyxBlades_trailer.mp4',
-      screenshots: [], // скриншотов нет
+      poster: 'images/StyxBlades_poster.jpg',
+      trailer: 'videos/StyxBlades_trailer.mp4',
+      screenshots: [],
       specs: { release: '19 февраля 2026', developer: 'Cyanide Studio', publisher: 'Nacon', engine: 'Unreal Engine 4', platform: 'PC, PS5, Xbox' },
-      links: {
-        steam: 'https://store.steampowered.com/app/3290690/Styx_Blades_of_Greed/',
-        torrent: '#', vkplay: '#', epic: '#'
-      }
+      links: { steam: 'https://store.steampowered.com/app/3290690/Styx_Blades_of_Greed/', torrent: '#', vkplay: '#', epic: '#' }
     }
   ];
 
@@ -456,11 +437,7 @@
     games.forEach(game => {
       const card = document.createElement('div');
       card.className = 'game-card';
-      // видео добавляем только если trailer указан
       const videoHtml = game.trailer ? `<video class="trailer-video" src="${game.trailer}" muted loop playsinline preload="metadata"></video>` : '';
-      const screenshotsHtml = (game.screenshots && game.screenshots.length) 
-        ? `<div class="screenshots-gallery" style="margin-top: 12px;">${game.screenshots.map(url => `<img src="${url}" alt="скриншот" style="width:100%; border-radius:8px;">`).join('')}</div>`
-        : `<div class="screenshots-gallery" style="margin-top: 12px; color:#aaa; font-size:0.7rem;">Скриншоты добавлены позже</div>`;
       card.innerHTML = `
         <div class="media-block">
           <img class="poster-img" src="${game.poster}" alt="${game.title}" loading="lazy" onerror="this.style.display='none'">
@@ -498,7 +475,6 @@
   const modal = document.getElementById('modal');
   const modalBody = document.getElementById('modalBody');
   function openModal(game) {
-    // для модалки также используем скриншоты
     const screensHtml = (game.screenshots && game.screenshots.length)
       ? `<div class="screenshots-gallery">${game.screenshots.map(url => `<img src="${url}" alt="скриншот" onclick="window.open('${url}','_blank')">`).join('')}</div>`
       : `<p style="color:#aaa;">Скриншоты появятся позже</p>`;
