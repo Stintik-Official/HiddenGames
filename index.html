@@ -358,7 +358,6 @@
 </div>
 
 <script>
-  // Пути ведут на папки images/ и videos/ (английские названия)
   const games = [
     {
       id: 'roadtovostok',
@@ -369,11 +368,7 @@
       fullDesc: 'Road to Vostok — хардкорная survival игра. Действие в зоне отчуждения. Собирай ресурсы, улучшай экипировку.',
       poster: 'images/roadtonostok_poster.jpg',
       trailer: null,
-      screenshots: [
-        'images/roadtonostok_scr1.jpg',
-        'images/roadtonostok_scr2.jpg',
-        'images/roadtonostok_scr3.jpg'
-      ],
+      screenshots: ['images/roadtonostok_scr1.jpg', 'images/roadtonostok_scr2.jpg', 'images/roadtonostok_scr3.jpg'],
       specs: { release: '7 апреля 2026 (Ранний доступ)', developer: 'Antti', publisher: 'Road to Vostok Ltd', engine: 'Unity', platform: 'PC (Steam)' },
       links: { steam: 'https://store.steampowered.com/app/1963610/Road_to_Vostok/', torrent: '#', vkplay: '#', epic: '#' }
     },
@@ -424,7 +419,7 @@
       shortDesc: 'Возвращение гоблина-вора. Стелс, засады, планирование.',
       fullDesc: 'Styx: Blades of Greed — новая глава в приключениях ловкого гоблина.',
       poster: 'images/StyxBlades_poster.jpg',
-      trailer: 'videos/StyxBlades_trailer.mp4',
+      trailer: 'https://stintik-official.github.io/LostGames/videos/StyxBlades_trailer.mp4',
       screenshots: [],
       specs: { release: '19 февраля 2026', developer: 'Cyanide Studio', publisher: 'Nacon', engine: 'Unreal Engine 4', platform: 'PC, PS5, Xbox' },
       links: { steam: 'https://store.steampowered.com/app/3290690/Styx_Blades_of_Greed/', torrent: '#', vkplay: '#', epic: '#' }
@@ -432,12 +427,21 @@
   ];
 
   const grid = document.getElementById('gamesGrid');
+
   function renderCards() {
     grid.innerHTML = '';
     games.forEach(game => {
       const card = document.createElement('div');
       card.className = 'game-card';
-      const videoHtml = game.trailer ? `<video class="trailer-video" src="${game.trailer}" muted loop playsinline preload="metadata"></video>` : '';
+      let videoHtml = '';
+      if (game.trailer) {
+        // Для абсолютных ссылок используем тег video с source и type
+        videoHtml = `
+          <video class="trailer-video" muted loop playsinline preload="metadata">
+            <source src="${game.trailer}" type="video/mp4">
+          </video>
+        `;
+      }
       card.innerHTML = `
         <div class="media-block">
           <img class="poster-img" src="${game.poster}" alt="${game.title}" loading="lazy" onerror="this.style.display='none'">
