@@ -14,7 +14,6 @@
       color: #eef2ff;
       line-height: 1.45;
     }
-    /* фоновая сетка (необязательно, но красиво) */
     body::before {
       content: '';
       position: fixed;
@@ -32,7 +31,6 @@
       margin: 0 auto;
       padding: 24px 32px 48px;
     }
-    /* шапка */
     .site-header {
       display: flex;
       justify-content: space-between;
@@ -84,14 +82,12 @@
       color: #fff;
       transform: translateY(-2px);
     }
-    /* сетка карточек – десктоп 4 колонки */
     .games-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 28px;
       margin-top: 20px;
     }
-    /* карточка */
     .game-card {
       background: #141a24;
       border-radius: 24px;
@@ -105,7 +101,6 @@
       box-shadow: 0 20px 35px -10px rgba(0,0,0,0.5);
       border-color: #ffb347;
     }
-    /* видео-блок */
     .media-block {
       position: relative;
       aspect-ratio: 16 / 9;
@@ -137,7 +132,6 @@
       opacity: 1;
       pointer-events: auto;
     }
-    /* оверлей с текстом при наведении */
     .poster-overlay {
       position: absolute;
       bottom: 0;
@@ -232,7 +226,6 @@
       background: #3a4452;
       border-color: #ffb347;
     }
-    /* модалка (скриншоты) */
     .modal {
       display: none;
       position: fixed;
@@ -365,8 +358,7 @@
 </div>
 
 <script>
-  // Данные игр с локальными трейлерами и постерами (ты загрузил)
-  // Пути к файлам – предположительные, откорректируй, если названия другие
+  // Точные имена из твоих папок (изображения, видео)
   const games = [
     {
       id: 'roadtovostok',
@@ -374,13 +366,13 @@
       genre: 'Hardcore Survival',
       statusText: '🚀 Ранний доступ',
       shortDesc: 'Хардкорный одиночный симулятор выживания в постапокалиптической приграничной зоне. Реализм, перманентная смерть.',
-      fullDesc: 'Road to Vostok — хардкорная survival игра. Действие в зоне отчуждения на границе Финляндии и России. Собирай ресурсы, улучшай экипировку, пробивайся к таинственному сектору «Восток».',
-      poster: 'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/roadtovostok_poster.jpg',
-      trailer: 'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/videos/roadtovostok_trailer.mp4',
+      fullDesc: 'Road to Vostok — хардкорная survival игра. Действие в зоне отчуждения. Собирай ресурсы, улучшай экипировку, пробивайся к сектору «Восток».',
+      poster: 'изображения/roadtonostok_poster.jpg',
+      trailer: null, // видео отсутствует
       screenshots: [
-        'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/roadtovostok_scr1.jpg',
-        'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/roadtovostok_scr2.jpg',
-        'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/roadtovostok_scr3.jpg'
+        'изображения/roadtonostok_scr1.jpg',
+        'изображения/roadtonostok_scr2.jpg',
+        'изображения/roadtonostok_scr3.jpg'
       ],
       specs: { release: '7 апреля 2026 (Ранний доступ)', developer: 'Antti', publisher: 'Road to Vostok Ltd', engine: 'Unity', platform: 'PC (Steam)' },
       links: {
@@ -394,13 +386,13 @@
       genre: 'Cyberpunk FPS',
       statusText: '🕒 Скоро',
       shortDesc: 'Кибернуарный боевик от создателей The Ascent. Город без правил, нелинейный сюжет.',
-      fullDesc: 'NO LAW — кибернуарный экшен от первого лица. Действие в городе Порт Дезайр, погрязшем в беззаконии. Открытый мир, глубокий сюжет, убийство любого NPC влияет на историю.',
-      poster: 'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/nolaw_poster.jpg',
-      trailer: 'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/videos/nolaw_trailer.mp4',
+      fullDesc: 'NO LAW — кибернуарный экшен от первого лица. Действие в городе Порт Дезайр, погрязшем в беззаконии.',
+      poster: 'изображения/nolaw_poster.jpg',
+      trailer: 'видео/NoLaw_Trailer.mp4',
       screenshots: [
-        'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/nolaw_scr1.jpg',
-        'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/nolaw_scr2.jpg',
-        'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/nolaw_scr3.jpg'
+        'изображения/nolaw_scr1.jpg',
+        'изображения/nolaw_scr2.jpg',
+        'изображения/nolaw_scr3.jpg'
       ],
       specs: { release: '2026', developer: 'Neon Giant', publisher: 'KRAFTON', engine: 'Unreal Engine 4', platform: 'PC, PS5, Xbox' },
       links: {
@@ -414,14 +406,10 @@
       genre: 'Narrative FPS',
       statusText: '✅ Вышла',
       shortDesc: 'Нарративный шутер. Нора застряла в параллельном измерении. Мрачная атмосфера, Unreal Engine 5.',
-      fullDesc: 'INDUSTRIA 2 — сиквел инди-хита. Нора пытается вернуться домой из параллельного мира, поглощённого ИИ. Исследуйте руины мегаполиса, сражайтесь с врагами.',
-      poster: 'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/industria2_poster.jpg',
-      trailer: 'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/videos/industria2_trailer.mp4',
-      screenshots: [
-        'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/industria2_scr1.jpg',
-        'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/industria2_scr2.jpg',
-        'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/industria2_scr3.jpg'
-      ],
+      fullDesc: 'INDUSTRIA 2 — сиквел инди-хита. Нора пытается вернуться домой из параллельного мира, поглощённого ИИ.',
+      poster: 'изображения/Industria2_poster.jpg',
+      trailer: 'видео/Industria2_trailer.mp4',
+      screenshots: [], // скриншоты отсутствуют, пока заглушка
       specs: { release: '30 апреля 2026', developer: 'Bleakmill', publisher: 'Headup', engine: 'Unreal Engine 5', platform: 'PC (Steam)' },
       links: {
         steam: 'https://store.steampowered.com/app/2154070/INDUSTRIA_2/',
@@ -434,13 +422,10 @@
       genre: 'Co-op Survival Horror',
       statusText: '🕒 Скоро',
       shortDesc: 'Кооперативный экшен-хоррор в средневековом мире, охваченном чумой.',
-      fullDesc: 'Blight: Survival — кооперативная игра на выживание. Исследуйте проклятые земли, сражайтесь с монстрами, собирайте ресурсы.',
-      poster: 'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/blight_poster.jpg',
-      trailer: 'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/videos/blight_trailer.mp4',
-      screenshots: [
-        'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/blight_scr1.jpg',
-        'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/blight_scr2.jpg'
-      ],
+      fullDesc: 'Blight: Survival — кооперативная игра на выживание. Исследуйте проклятые земли, сражайтесь с монстрами.',
+      poster: 'изображения/BlightSirvival_poster.jpg', // есть опечатка в имени, но так в файле
+      trailer: null, // видео отсутствует
+      screenshots: [], // скриншотов нет
       specs: { release: 'Ожидается', developer: 'Haenir Studio', publisher: 'Unknown', engine: 'Unreal Engine 4', platform: 'PC (Steam)' },
       links: {
         steam: 'https://store.steampowered.com/app/1963610/Blight_Survival/',
@@ -453,13 +438,10 @@
       genre: 'Stealth Action',
       statusText: '✅ Вышла',
       shortDesc: 'Возвращение гоблина-вора. Стелс, засады, планирование.',
-      fullDesc: 'Styx: Blades of Greed — новая глава в приключениях ловкого гоблина. Планируйте ограбления, используйте скрытность и десятки приспособлений.',
-      poster: 'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/styx_poster.jpg',
-      trailer: 'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/videos/styx_trailer.mp4',
-      screenshots: [
-        'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/styx_scr1.jpg',
-        'https://raw.githubusercontent.com/Stintik-Official/LostGames/main/images/styx_scr2.jpg'
-      ],
+      fullDesc: 'Styx: Blades of Greed — новая глава в приключениях ловкого гоблина.',
+      poster: 'изображения/StyxBlades_poster.jpg',
+      trailer: 'видео/StyxBlades_trailer.mp4',
+      screenshots: [], // скриншотов нет
       specs: { release: '19 февраля 2026', developer: 'Cyanide Studio', publisher: 'Nacon', engine: 'Unreal Engine 4', platform: 'PC, PS5, Xbox' },
       links: {
         steam: 'https://store.steampowered.com/app/3290690/Styx_Blades_of_Greed/',
@@ -474,10 +456,15 @@
     games.forEach(game => {
       const card = document.createElement('div');
       card.className = 'game-card';
+      // видео добавляем только если trailer указан
+      const videoHtml = game.trailer ? `<video class="trailer-video" src="${game.trailer}" muted loop playsinline preload="metadata"></video>` : '';
+      const screenshotsHtml = (game.screenshots && game.screenshots.length) 
+        ? `<div class="screenshots-gallery" style="margin-top: 12px;">${game.screenshots.map(url => `<img src="${url}" alt="скриншот" style="width:100%; border-radius:8px;">`).join('')}</div>`
+        : `<div class="screenshots-gallery" style="margin-top: 12px; color:#aaa; font-size:0.7rem;">Скриншоты добавлены позже</div>`;
       card.innerHTML = `
         <div class="media-block">
           <img class="poster-img" src="${game.poster}" alt="${game.title}" loading="lazy" onerror="this.style.display='none'">
-          <video class="trailer-video" src="${game.trailer}" muted loop playsinline preload="metadata"></video>
+          ${videoHtml}
           <div class="poster-overlay">
             <div class="tag">${game.genre}</div>
           </div>
@@ -511,7 +498,10 @@
   const modal = document.getElementById('modal');
   const modalBody = document.getElementById('modalBody');
   function openModal(game) {
-    const screensHtml = game.screenshots.map(url => `<img src="${url}" alt="скриншот" onclick="window.open('${url}','_blank')">`).join('');
+    // для модалки также используем скриншоты
+    const screensHtml = (game.screenshots && game.screenshots.length)
+      ? `<div class="screenshots-gallery">${game.screenshots.map(url => `<img src="${url}" alt="скриншот" onclick="window.open('${url}','_blank')">`).join('')}</div>`
+      : `<p style="color:#aaa;">Скриншоты появятся позже</p>`;
     modalBody.innerHTML = `
       <h2>${game.title}</h2>
       <div class="status-badge">${game.statusText}</div>
@@ -525,7 +515,7 @@
       <div class="modal-subhead">📖 Сюжет и особенности</div>
       <p>${game.fullDesc}</p>
       <div class="modal-subhead">📸 Скриншоты</div>
-      <div class="screenshots-gallery">${screensHtml}</div>
+      ${screensHtml}
       <div style="margin-top: 20px;">
         <a href="${game.links.steam}" target="_blank" class="store-btn steam" style="display:inline-block;"><i class="fab fa-steam"></i> Перейти в Steam →</a>
       </div>
